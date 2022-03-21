@@ -32,15 +32,20 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'django_non_dark_admin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'posts',
+    'profiles',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -49,6 +54,13 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+INTERNAL_IPS = [
+    # ...
+    "127.0.0.1",
+    # ...
+]
+
 
 ROOT_URLCONF = 'proconnect.urls'
 
@@ -122,8 +134,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS=[BASE_DIR / 'static_project']
 
-STATIC_ROOT=os.path.join(BASE_DIR,"static_cdn","static_root")
-MEDIA_ROOT=os.path.join(BASE_DIR,"static_cdn","media_root")
+STATIC_ROOT=BASE_DIR / 'static_cdn' / 'static_root'
+MEDIA_ROOT  = os.path.join(BASE_DIR,'static_cdn','media_root')
 MEDIA_URL='/media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
