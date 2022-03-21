@@ -29,7 +29,7 @@ class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     gender=models.CharField(max_length=1,choices=GENDER,default='S')
     dob=models.DateField(auto_now_add=True)
-    
+    headline=models.CharField(max_length=200)
 #   account_type  {user,company}
     account_type = models.CharField(max_length=1,choices=PROFILE_CHOICE,default='U')
     about_us=models.CharField(default='No bio....',max_length=1000)
@@ -40,6 +40,13 @@ class Profile(models.Model):
     last_updated_time=models.DateTimeField(auto_now=True)
     created_time=models.DateTimeField(auto_now_add=True)
     slug=models.SlugField(unique=True, blank=True,max_length=1000)
+
+    def get_connections(self):
+        return self.connections.all()
+    def get_connections_count(self):
+        return self.connections.all().count()
+    
+
 
     def __str__(self) -> str:
         return f"{self.user.username}-{self.created_time}"
