@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'posts',
     'profiles',
     'debug_toolbar',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [

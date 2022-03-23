@@ -29,7 +29,7 @@ class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     gender=models.CharField(max_length=1,choices=GENDER,default='S')
     dob=models.DateField(auto_now_add=True)
-    headline=models.CharField(max_length=200)
+    headline=models.CharField(max_length=200,blank=True)
 #   account_type  {user,company}
     account_type = models.CharField(max_length=1,choices=PROFILE_CHOICE,default='U')
     about_us=models.CharField(default='No bio....',max_length=1000)
