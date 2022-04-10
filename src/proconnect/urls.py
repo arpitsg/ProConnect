@@ -26,7 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home_view,name='home-view' ),
     path('__debug__/', include('debug_toolbar.urls')),
-    path('profiles/',include('profiles.urls',namespace='profiles'))
+    path('profiles/',include('profiles.urls',namespace='profiles')),
+    path('posts/',include('posts.urls',namespace='posts'))
     ]
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

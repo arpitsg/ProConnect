@@ -7,16 +7,23 @@ my profile
 
 {% block content %}
 
-<body class="text-center">
+<body class="text-left">
+   
+          
+
     <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
         {% csrf_token %}
         {% for form,skill in skill_zip  %}
-       
+        <div class="card">
+            <div class="card border-dark mb-3" >
+               
+                <div class="card-body text-dark">
+                  <h5 class="card-title">Modify your skill ({{skill.id}})</h5>
+               
         {{form.as_p}}
         <button type='submit'   name="id" value={{skill.id}} >
             Update
           </button>
-        
         <!-- <div class="ui mini form">
             <div class="two fields">
               <div class="field">
@@ -30,19 +37,25 @@ my profile
             </div>
             <div class="ui submit button" type="submit">Save</div>
           </div> -->
-         
+        </div>
+    </div>
          
             {% endfor%}
+     
+
     </form>
+    </div>
 </body>
 
 
 <style type="text/css">
+    
     body {
         color: #6c757d;
         background-color: #f5f6f8;
         margin-top: 20px;
     }
+    
 
     .card-box {
         background-color: #fff;

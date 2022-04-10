@@ -28,7 +28,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -43,6 +42,8 @@ INSTALLED_APPS = [
     'profiles',
     'debug_toolbar',
     'bootstrap4',
+    'geoip2',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [

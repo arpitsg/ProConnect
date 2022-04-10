@@ -7,14 +7,6 @@ my profile
 
 {% block content %}
 
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css"
-    integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css"
-    integrity="sha256-2XFplPlrFClt0bIdPgpz8H7ojnk10H69xRqd9+uTShA=" crossorigin="anonymous" />
 <div class="container">
     <div class="row">
         <div class="col-lg-4 col-xl-4">
@@ -48,6 +40,7 @@ my profile
 
             <div class="card-box">
                 <h4 class="header-title">Skills</h4>
+                
                 {% for skill in skills %}
                 <div class="list-group-item">
                     <div align='right'>
@@ -55,11 +48,9 @@ my profile
                             {% csrf_token %}
                             <button class="btn btn-success btn-sm rounded-0" id='skill-model-edit' name='id_edit' value={{skill.id}} type="submit"  title="Edit"><i class="fa fa-edit"></i></button> 
                         </form> -->
-                            <button class="btn btn-success btn-sm rounded-0" name="skill_model_edit" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
+                            <!-- <button class="btn btn-success btn-sm rounded-0" name="skill_model_edit" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
                             <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-             
-                        </button>
-                        </form>
+              -->
                   </div>
                     <div class="mt-2 pt-1">
                         <h6 class="text-uppercase mt-0">{{skill.title}}<span class="float-right">{{skill.proficiency}}%</span></h6>
@@ -79,7 +70,7 @@ my profile
             </div> <!-- end card-box-->
 
           <!-- MODAL -->
-<div class="ui modal mymodal">
+<!-- <div class="ui modal mymodal">
     <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
         {% csrf_token %}
         {{form_profile.as_p}}
@@ -89,17 +80,19 @@ my profile
     </button>
     </form>
     
-  </div>
+  </div> -->
 
   
             <div class="card-box">
-                <h4 class="header-title">Languages</h4> 
+                <h4 class="header-title">Languages</h4>
+                
+           
                 {% for language in languages %}
                 <div class="list-group-item">
-                    <div align='right'>
+                    <!-- <div align='right'>
                         <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
                         <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                    </div>
+                    </div> -->
                       
                 <div class="mt-2 pt-1">
                     <h6 class="text-uppercase mt-0">{{language.language_name}}</h6>
@@ -122,6 +115,8 @@ my profile
 
         </div> <!-- end col-->
 
+
+
         <div class="col-lg-8 col-xl-8">
             <div class="card-box">
                 <ul class="nav nav-pills navtab-bg">
@@ -131,16 +126,22 @@ my profile
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#settings" data-toggle="tab" aria-expanded="false" class="nav-link">
-                            <i class="mdi mdi-settings-outline mr-1"></i>Settings
+                        <a href="#change_pane" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            <i class="mdi mdi-settings-outline mr-1"></i>Edit 
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="#profile_pane" data-toggle="tab" aria-expanded="false" class="nav-link">
+                            <i class="mdi mdi-settings-outline mr-1"></i>Profile Edit
+                        </a>
+                    </li>
+                    
                 </ul>
 
                 <div class="tab-content">
 
                     <div class="tab-pane show active" id="about-me">
-                        {% if education  %}
+                        {% if educations%}
                         <h5 class="mb-4 text-uppercase"><i class="mdi mdi-briefcase mr-1"></i>
                             Education</h5>
                         {% endif %}
@@ -149,15 +150,15 @@ my profile
                             <!-- <p class="text-muted mt-2">No education details entered</p> -->
                            
                               
-                            {% for edu in education %}
+                            {% for edu in educations %}
                             <li class="timeline-sm-item">
                               
                                 <span class="timeline-sm-date">{{edu.start_date.year}} to {{edu.end_date_expected.year}}</edu></span>
                               <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-title">{{edu.school}}</h5>
-                                    <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
-                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                    <!-- <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
+                                    <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button> -->
  
                                 </div>
                                     <div class="card-body">
@@ -172,7 +173,7 @@ my profile
                             </li>
                             {% endfor %}
                         </ul>
-                        {% if experience %}
+                        {% if experiences %}
                         <h5 class="mb-4 text-uppercase"><i class="mdi mdi-briefcase mr-1"></i>
                             Experience </h5>
                         
@@ -180,19 +181,30 @@ my profile
 
                             <!-- <p class="text-muted mt-2">No education details entered</p> -->
                       
-                            {% for exp in experience %}
-                            <li class="timeline-sm-item">
-                                <!-- {% if exp.is_current %}
-                                <p class="text-muted mt-2">{{is_current}}</p>
-                                {% endif %} -->
-                                <span class="timeline-sm-date">{{exp.start_date.year}} to {{exp.end_date.year}}</edu></span>
-                                <h5 class="mt-0 mb-1">{{exp.company_name}}</h5>
-                               <p>Employed as a:{{exp.employement_type}} {{exp.title}} at {{exp.company_name}}</p>
+                            {% for experience in experiences %}
+                           <li class="timeline-sm-item">
+                                {% if experience.end_date == None %}
+                                   <span class="timeline-sm-date">Current job <br>since {{experience.start_date.month}} / {{experience.start_date.year}} </edu></span>
+                                {%else %}
+                                  <span class="timeline-sm-date">{{experience.start_date.month}} / {{experience.start_date.year}} to <br> {{experience.end_date.month}} / {{experience.end_date.year}}</edu></span>
+                                {% endif %}
+                                 <div class="card">
+                                   <div class="card-header">
+                                       <h5 class="card-title">{{experience.title}} at {{experience.company_name}} <br> Employed as : {{experience.employement_type}}</h5>
+                                       <!-- <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
+                                       <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button> -->
 
-                                <!-- <p>{{edu.grade}}</p>
-                                <p>{{edu.description}}</p> -->
-                                <p class="text-muted mt-2">{{exp.description}}</p>
-                            </li>
+                                   </div>
+                                       <div class="card-body">
+
+                                   <p>{{experience.description}} </p>
+
+                                   <!-- <p>{{edu.grade}}</p>
+                                   <p>{{edu.description}}</p> -->
+                                
+                               </div>
+                           </div>
+                               </li>
                             {% endfor %}
                         </ul>
                         
@@ -203,9 +215,11 @@ my profile
                         
                         {% if projects %}
                         <h5 class="mb-3 mt-4 text-uppercase"><i class="mdi mdi-cards-variant mr-1"></i>
-                            Projects</h5> <span style="display:inline"> <button type='submit' class="ui positive button">
-                                Add Project
-                              </button></span>
+                            Projects</h5> <span style="display:inline"> 
+                                <button type='submit' class="ui positive button">
+                                Add    Project
+                              </button>
+                            </span>
                               <div class="table-responsive">
                                 <table class="table table-borderless mb-0">
                                     <thead class="thead-light">
@@ -217,8 +231,8 @@ my profile
                                             <th>Status</th>
                                             <th>Mentor</th>
                                             <th>Description</th>
-                                            <th></th>
-                                            <th></th>
+                                            <!-- <th></th>
+                                            <th></th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -231,11 +245,11 @@ my profile
                                             <td><span class="badge badge-info">{{project.status}}</span></td>
                                             <td>{{project.mentor}}</td>
                                             <td>{{project.description}}</td>
-                                            <td >
+                                            <!-- <td >
                                                 <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>                                            </td>
                                             <td >
                                                 <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                                            </td>
+                                            </td> -->
                                         </tr>
                                         {% endfor %}
                                         
@@ -254,38 +268,360 @@ my profile
                     </div>
                     <!-- end timeline content-->
 
-                    <div class="tab-pane" id="settings">
+                    <div class="tab-pane" id="profile_pane">
                      
                         <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
                             {% csrf_token %}
-                            <!-- {{form_profile.as_p}} -->
-                            {{form_skill.as_p}}
+                            {{form_profile.as_p}}
                         <button type='submit' class="ui positive right labeled icon button"  name="profile_submit">
                           Update 
                           <i class="checkmark icon"></i>
                         </button>
-                        <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
-                            {% csrf_token %}
-                            <!-- {{form_profile.as_p}} -->
-                            {{form_skill.as_p}}
-                        <button type='submit' class="ui positive right labeled icon button"  name="profile_submit">
-                          Update
-                          <i class="checkmark icon"></i>
-                        </button>
                         </form>
-                       
-                       
+
                     </div>
-                    <!-- end settings content-->
+                    <div class="tab-pane" id="change_pane">
+                        <!-- <form method="POST" action="">
+                            {% csrf_token %}
+                         
+                
+                        <div class="ui large form">
+                            <div class="two fields">
+                              <div class="field">
+                                <label>Skill name</label>
+                                <input placeholder="Skill name" type="text">
+                              </div>
+                              <div class="field">
+                                <label>Proficiency</label>
+                                <input placeholder="Proficiency" type="number" min="1" max="100">
+                              </div>
+                            </div>
+                          </div>
+                        
+                        <button type='submit' class="ui positive right labeled icon button"  name="skill_submit"></button>
+                        
+                    </form> -->
+                    
+                    <form  method="POST" action="">
+                        {% csrf_token %}
+                        <h1 class="h3 mb-3 font-weight-normal">Update your skills </h1>
+                        {% for form in skill_form %}
+                        <div class="card">
+                            <div class="card-body pl-5 pr-5">
+                                <div class="form-row">
+                                    <!-- <div class="form-group col-md-6">
+                                        <label for="Skill Name" >Skill Name</label>
+                                        <input type="text" value={{skill.title}} id="skillname" class="form-control" name="skillname" placeholder="Enter Skill Name" required
+                                            autofocus>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="proficiency">Proficiency</label>
+                                        <input type="number"  min="1" max="100" value={{skill.proficiency}} id="proficiency" class="form-control" name="proficiency" placeholder="Enter Proficiency" required>
+                                    </div> -->
+                                    {{form}}
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        {% endfor %}
+                        <button class="btn btn btn-primary btn-block" name="skill_modilfy_submit" type="submit">Submit</button>
+
+                    </form>
+                    
+<!-- 
+
+                    <form  method="POST" action="">
+                        {% csrf_token %}
+                        <h1 class="h3 mb-3 font-weight-normal">Update your language </h1>
+                        {% for language in languages %}
+                        <div class="card">
+                            <div class="card-body pl-5 pr-5">
+
+                                <div class="form-row">
+                                        <tr><th><label for="id_language_name">Language name:</label></th><td><input type="text" name="language_name" value={{language.language_name}} maxlength="250" required id="id_language_name"></td></tr>
+        
+                                        <tr><th><label for="id_proficiency" value={{language.language_name}}>Proficiency:</label></th><td>
+                                        <select name="proficiency" selected id="id_proficiency">
+                                        <option value="Elementary-proficiency" {%if language.proficiency == "Elementary-proficiency" %} selected {% endif %}>Elementary proficiency</option>
+
+                                        <option value="Limited-working-proficiency" {%if language.proficiency == "Limited-working-proficiency" %} selected {% endif %}>Limited working proficiency</option>
+
+                                        <option value="Professional-working-proficiency"  {%if language.proficiency == "Professional-working-proficiency" %} selected {% endif %} >Professional working proficiency</option>
+
+                                        <option value="Full-professional-proficiency" {%if language.proficiency == "Full-professional-proficiency" %} selected {% endif %}>Full professional proficiency</option>
+
+                                        <option value="Native-or-bilingual-proficiency" {%if language.proficiency == "Native-or-bilingual-proficiency" %} selected {% endif %} >Native or bilingual proficiency</option>                              
+                                        </select>
+                                        </td></tr>
+                                    </div>  
+                              </div> 
+                            </div>
+                        </div>
+                  
+                     
+                        {% endfor %}
+                        <button class="btn btn btn-primary btn-block" name="language_modilfy_submit" type="submit">Submit</button>
+
+                    </form  > -->
+                   
+                    <!-- <form method="POST" action="">
+                        {% csrf_token %}
+                        <h1 class="h3 mb-3 font-weight-normal">Update your experiences </h1>
+                        {% for experience in experiences %}
+                        <div class="card">
+                        <div class="card-body pl-5 pr-5">
+
+                            <div class="form-row">
+                        <tr><th><label for="id_title">Title:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="text" name="title" maxlength="250" required id="id_title" value={{experience.title}}></td></tr>
+                        <tr><th><label for="id_employement_type">Employement type:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><select name="employement_type" required id="id_employement_type">
+
+                          <option value="Full-time" {%if experience.employement_type == "Full-time" %} selected {% endif %}>Full-time</option>
+
+                          <option value="Part-time"  {%if experience.employement_type == "Part-time" %} selected {% endif %}>Part-time</option>
+
+                          <option value="Self-employed" {%if experience.employement_type == "Self-employed" %} selected {% endif %}>Self-employed</option>
+
+                          <option value="Freelance"  {%if experience.employement_type == "Freelance" %} selected {% endif %}>Freelance</option>
+
+                          <option value="Internship"  {%if experience.employement_type == "Internship" %} selected {% endif %}>Internship</option>
+
+                        </select></td></tr>
+                        <tr><th><label for="id_company_name">Company name:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="text" value={{experience.company_name}} name="company_name" maxlength="250" required id="id_company_name"></td></tr>
+                        <tr><th><label for="id_description">Description:</label></th><td><input type="text" value={{experience.description}} name="description" maxlength="2500" id="id_description"></td></tr>
+                        <tr><th><label for="id_start_date">Start date:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="date" value={{experience.start_date}} name="start_date" required id="id_start_date"></td></tr>
+                        <tr><th><label for="id_end_date">End date: </label></th><td><ul class="errorlist"><li>Leave empty if current job</li></ul><input type="date"  value={{experience.end_date}} name="end_date"  id="id_end_date"></td></tr>
+                        
+
+                            <input type="checkbox" {% if experience.is_current == True %} checked {% endif %}  name="is_current"   id="id_is_current"> 
+  
+                            </div>  
+                              </div> 
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn btn-primary btn-block" name="experience_modify_submit" type="submit">Submit</button>
+
+                    </form> -->
+<!-- 
+
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        <h1 class="h3 mb-3 font-weight-normal">Update your education details </h1>
+                        {% for education in educations %}
+                        <div class="card">
+                        <div class="card-body pl-5 pr-5">
+
+                            <div class="form-row">
+
+                    <tr><th><label for="id_school">School:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="text" {% if education.school %} value={{education.school}} {% endif %} name="school" maxlength="250" required id="id_school"></td></tr>
+                    <tr><th><label for="id_degree">Degree:</label></th><td><input type="text" name="degree" maxlength="250" id="id_degree" {% if education.degree %}   value={{education.degree}} {% endif %} ></td></tr>
+                    <tr><th><label for="id_field">Field:</label></th><td><input type="text"  {% if education.field %}  value={{education.field}}  {% endif %} name="field" maxlength="250" id="id_field"></td></tr>
+                    <tr><th><label for="id_start_date">Start date:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="date" name="start_date" value={{education.start_date}} required id="id_start_date"></td></tr>
+                    <tr><th><label for="id_end_date_expected">End date expected:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="date" name="end_date_expected" value={{education.end_date_expected}} required id="id_end_date_expected"></td></tr>
+                    <tr><th><label for="id_grade">Grade:</label></th><td><input type="text" name="grade" {% if education.grade %}  value={{education.grade}}  {% endif %}  maxlength="250" id="id_grade"></td></tr>
+                    <tr><th><label for="id_description">Description:</label></th><td><input type="text"  {% if education.description %}  value={{education.description}} {% endif %} name="description" maxlength="2500" id="id_description"></td></tr>
+                    </div>  
+                          </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn btn-primary btn-block" name="education_modilfy_submit" type="submit">Submit</button>
+
+                </form> -->
+                <form method="POST" action="">
+                  {% csrf_token %}
+                     <h1 class="h3 mb-3 font-weight-normal">Update your Experience </h1>
+                     {% for form in experience_form %}
+                     <div class="card">
+                     <div class="card-body pl-5 pr-5">
+
+                         <div class="form-row">
+                        {{form}}
+
+                      </div>  
+                                  <!-- </div> -->
+                                  </div>
+                              </div>
+                    {% endfor %}
+                    <button class="btn btn btn-primary btn-block" name="experience_modilfy_submit" type="submit">Submit</button>
+
+                </form>
+
+                <form method="POST" action="">
+                  {% csrf_token %}
+                     <h1 class="h3 mb-3 font-weight-normal">Update your language </h1>
+                     {% for form in language_form %}
+                     <div class="card">
+                     <div class="card-body pl-5 pr-5">
+
+                         <div class="form-row">
+                        {{form}}
+
+                      </div>  
+                                  <!-- </div> -->
+                                  </div>
+                              </div>
+                    {% endfor %}
+                    <button class="btn btn btn-primary btn-block" name="language_modilfy_submit" type="submit">Submit</button>
+
+                </form>
+                <form method="POST" action="">
+                  {% csrf_token %}
+                     <h1 class="h3 mb-3 font-weight-normal">Update your Education </h1>
+                     {% for form_ in education_form %}
+                     <div class="card">
+                     <div class="card-body pl-5 pr-5">
+
+                         <div class="form-row">
+                        {{form_}}
+
+                      </div>  
+                                  <!-- </div> -->
+                                  </div>
+                              </div>
+                    {% endfor %}
+                    <button class="btn btn btn-primary btn-block" name="education_modilfy_submit" type="submit">Submit</button>
+
+                </form>
+                
+
+                
+                <form method="POST" action="">
+                  {% csrf_token %}
+                     <h1 class="h3 mb-3 font-weight-normal">Update your Projects </h1>
+                     {% for form in project_form %}
+                     <div class="card">
+                     <div class="card-body pl-5 pr-5">
+
+                         <div class="form-row">
+                        {{form}}
+              
+                      </div>  
+                                  <!-- </div> -->
+                                  </div>
+                              </div>
+                    {% endfor %}
+                    <button class="btn btn btn-primary btn-block" name="project_modilfy_submit" type="submit">Submit</button>
+
+                </form>
+
+
+                    </div>
+                    <!-- end skill_pane content-->
 
                 </div> <!-- end tab-content -->
             </div> <!-- end card-box-->
 
+        
         </div> <!-- end col -->
     </div>
 </div>
 
 <style type="text/css">
+    /* body {
+      font-family: 'Nunito', sans-serif;
+      color: #384047;
+    } */
+
+    form {
+      /* max-width: 300px; */
+      margin: 10px auto;
+      padding: 10px 20px;
+      background: #f4f7f8;
+      border-radius: 8px;
+    }
+
+    h1 {
+      margin: 0 0 30px 0;
+      text-align: center;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="date"],
+    input[type="datetime"],
+    input[type="email"],
+    input[type="number"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="time"],
+    input[type="url"],
+    textarea,
+    select {
+      background: rgba(255,255,255,0.1);
+      border: none;
+      font-size: 14px;
+      height: auto;
+      margin: 0;
+      outline: 0;
+      padding: 10px;
+      width: 100%;
+      background-color: #e8eeef;
+      color: #8a97a0;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+      margin-bottom: 10px;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin: 0 4px 8px 0;
+    }
+
+    select {
+      padding: 6px;
+      /* height: 32px; */
+      border-radius: 2px;
+    }
+
+    .button_form {
+      padding: 19px 39px 18px 39px;
+      color: #FFF;
+      background-color: #4bc970;
+      font-size: 18px;
+      text-align: center;
+      font-style: normal;
+      border-radius: 5px;
+      width: 100%;
+      border: 1px solid #3ac162;
+      border-width: 1px 1px 3px;
+      box-shadow: 0 -1px 0 rgba(255,255,255,0.1) inset;
+      margin-bottom: 10px;
+    }
+
+    fieldset {
+      margin-bottom: 30px;
+      border: none;
+    }
+
+    legend {
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    label.light {
+      font-weight: 300;
+      display: inline;
+    }
+
+    .number {
+      background-color: #5fcf80;
+      color: #fff;
+      height: 30px;
+      width: 30px;
+      display: inline-block;
+      font-size: 0.8em;
+      margin-right: 4px;
+      line-height: 30px;
+      text-align: center;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.2);
+      border-radius: 100%;
+    }
     body {
         color: #6c757d;
         background-color: #f5f6f8;

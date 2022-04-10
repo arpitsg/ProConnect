@@ -1,4 +1,5 @@
 from ast import mod
+from datetime import datetime
 from distutils.command.upload import upload
 import email
 from email.policy import default
@@ -9,6 +10,7 @@ from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
 from matplotlib.pyplot import title
 from django.core.validators import MinValueValidator, MaxValueValidator
+from sqlalchemy import null
 from .utils import get_random_postfix
 # Create your models here.
 
@@ -92,11 +94,10 @@ class Experience (models.Model):
         ('Internship', 'Internship')
     ] 
     title = models.CharField(max_length=250,blank=False)
-    employement_type = models.CharField(max_length=15,choices=EMPLOYMENT_CHOICE)
+    employement_type = models.CharField(max_length=15,choices=EMPLOYMENT_CHOICE,default='Full-time')
     company_name=models.CharField(max_length=250,blank=False)
-    start_date = models.DateField(blank=False) 
-    is_current=models.BooleanField(default=True)
-    end_date = models.DateField(blank=True)
+    start_date = models.DateField(blank=False)
+    end_date =models.DateField(blank=True,null=True)
     description = models.CharField(blank=True,max_length=2500)
     profileID=models.ForeignKey(User,on_delete=models.CASCADE)
 
@@ -151,7 +152,7 @@ class Projects (models.Model):
     ]
     title = models.CharField(max_length=250,blank=False)
     start_date = models.DateField(blank=False) 
-    end_date = models.DateField(blank=True)
+    end_date = models.DateField(blank=True,null=True)
     mentor = models.CharField(blank=True,max_length=250)
     description = models.CharField(blank=True,max_length=250)
     status=models.CharField(max_length=20,choices=STATUS_CHOICE)
@@ -160,7 +161,7 @@ class Projects (models.Model):
 
 
 class Address(models.Model):
-        street=models.CharField(max_length=255,blank=True)
+        
         city=models.CharField(max_length=255,blank=True)
         profileID=models.ForeignKey(User,on_delete=models.CASCADE)
         zip=models.IntegerField(blank=True)
