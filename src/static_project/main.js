@@ -16,3 +16,4 @@ document.querySelector('#name').addEventListener('input', function(e) {
         location.required = false;
     }
 });
+

@@ -21,13 +21,18 @@ from  django.conf import settings
 from  django.conf.urls.static import static
 from django.views.static import serve 
 import  debug_toolbar
-from .views import home_view
+from .views import home_view,register_request_user,login_request,logout_view,register_request_company
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home_view,name='home-view' ),
     path('__debug__/', include('debug_toolbar.urls')),
     path('profiles/',include('profiles.urls',namespace='profiles')),
-    path('posts/',include('posts.urls',namespace='posts'))
+    path('posts/',include('posts.urls',namespace='posts')),
+    path('register_user/', register_request_user, name="register_user"),
+    path('register_company/', register_request_company, name="register_user"),
+
+     path("login", login_request, name="login"),
+     path("logout", logout_view, name="logout_view")
     ]
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 urlpatterns+=static(settings.STATIC_URL,document_root=settings.STATIC_ROOT)

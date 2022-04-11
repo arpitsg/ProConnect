@@ -41,7 +41,7 @@
                    {{ request.user }}
               </a>
   
-              <a href="" class="ui item">
+              <a href="{% url 'logout_view' %}" class="ui item">
                   Logout
               </a>
           {% else %}
