@@ -1,0 +1,171 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+my profile
+{% endblock title %}
+{% load crispy_forms_tags %}
+{% block content %}
+ <!-- end col-->
+
+
+
+<div class="card-box">
+<ul class="nav nav-pills navtab-bg">
+    <li class="nav-item">
+        
+        <a href="#profile" data-toggle="tab" aria-expanded="true" class="nav-link ml-0 active" style="color:rgb(250, 250, 250);">
+            <i class="mdi mdi-face-profile mr-1"></i>Profile
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#add_job" data-toggle="tab" aria-expanded="false" class="nav-link" style="color:rgb(250, 250, 250);" >
+          Add Job
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#list_jobs" data-toggle="tab"  aria-expanded="false" class="nav-link" style="color:rgb(255, 255, 255);">
+            <i class="mdi mdi-settings-outline mr-1"></i>Listed Jobs
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#update_profile" data-toggle="tab"  aria-expanded="false" class="nav-link" style="color:rgb(255, 255, 255);">
+            <i class="mdi mdi-settings-outline mr-1"></i>Update Profile
+        </a>
+    </li>
+    
+</ul>
+<div class="tab-content">
+<div class="tab-pane show active" id="profile">
+        <div class="card border-dark mb-3">
+          <div class="card-header"><h1>{{company.company_name}}</h1></div>
+          <div class="card-body text-dark">
+            <h5 class="card-title">About Us</h5>
+            <p class="card-text">{{company.about_us}}</p>
+          </div>
+        </div>
+        <div class="card-deck">
+            <div class="card border-dark mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Total jobs posted</h5>
+                <p class="card-text">{{total_jobs}} job posted</p>
+                <p class="card-text"><small class="text-muted">Last updated {{company.last_updated_time}}</small></p>
+              </div>
+            </div>
+            <div class="card border-dark mb-3">
+              <div class="card-body">
+                <h5 class="card-title">Location</h5>
+                <p class="card-text">We are located at {{company.location}}</p>
+                <p class="card-text"><small class="text-muted">Last updated {{company.last_updated_time}}</small></p>
+              </div>
+            </div>
+           <div class="card border-dark mb-3">
+             <div class="card-body">
+               <h5 class="card-title">Employee strength</h5>
+               <p class="card-text">We have {{company.employee_strength}} employees. </p>
+               <p class="card-text"><small class="text-muted">Last updated {{company.last_updated_time}}</small></p>
+             </div>
+           </div>
+          </div>
+</div>
+<div class="tab-pane show " id="add_job">
+  <form action='' method="post">
+
+    {% csrf_token %}
+
+       {{job_form|crispy}}
+       <button type="submit" class="btn btn-block btn-primary btn-md" id="register_user_submit" name="add_job" data-mdb-ripple-color="dark">Submit</button>
+   </form>
+</div>
+
+
+<div class="tab-pane show " id="list_jobs">
+   
+
+
+         <div class="container">
+
+           <div class="row">
+            {% if my_jobs|length == 0 %}
+            <h2>No job listed </h2>
+            {% endif %}
+             {% for job in my_jobs %}
+             <div class="col-xxl-6 col-md-12">
+               <div class="card text-center">
+                 <h3>{{ job.title }}</h3>
+                 <ul class="job-listing-meta list-unstyled pl-3 mb-0">
+                   <li class="menu-fix mb-2">
+
+                     <span class="badge badge-primary">
+                       {{job.job_type}}
+                     </span>
+                 </li>
+                   <li class="badge badge-secondary menu-fix mb-2"> {{ job.location }}</li>
+                 </ul>
+                 <p>{{ job.description | safe | truncatechars:250}}</p>
+                 <a href="{% url 'company_profile:edit_job_view' job.id %}" >
+                   <input type="submit"   class="btn btn-block btn-primary btn-md" value="Edit Job" />
+                 </a>
+                 <a href="{% url 'company_profile:view_applications' job.id %}" >
+                   <input type="submit"  class="btn btn-block btn-primary btn-md" value="Applications recieved" />
+                 </a>
+
+                 </div>
+               </div>
+
+
+
+
+
+
+
+             {% endfor %}
+           </div>
+     
+
+         </div>
+</div>
+
+<div class="tab-pane show " id="update_profile">
+   
+
+
+      <div class="container">
+
+        <form action='' method="post">
+
+         {% csrf_token %}
+
+            {{profile_form|crispy}}
+            <button type="submit" class="btn btn-block btn-primary btn-md" id="register_user_submit" name="profile_update" data-mdb-ripple-color="dark">Submit</button>
+        </form>
+  
+
+      </div>
+</div>
+</div>
+
+</div>
+<style>
+    main.form-group {
+      /*center form inputs */
+      float: none;
+      margin: 0 auto;
+    }
+
+    main {
+      /* center contents */
+      text-align: center;
+    }
+
+    .card {
+        margin: 10px;
+        padding: 10px;
+      height: 100%;
+    }
+
+    .form-control {
+      align-self: flex-end;
+    }
+</style>
+{% endblock content %}

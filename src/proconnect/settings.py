@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     'geoip2',
     'crispy_forms',
     'company_profile',
+    'django_extensions',
+    
 ]
-CRISPY_TEMPLATE_PACK = 'uni_form'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGOUT_REDIRECT_URL = '/'
 MIDDLEWARE = [
     "debug_toolbar.middleware.DebugToolbarMiddleware",
@@ -71,7 +73,7 @@ ROOT_URLCONF = 'proconnect.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates' , BASE_DIR/'proconnect'/'templates'],
+        'DIRS': [BASE_DIR / 'templates' , BASE_DIR/'proconnect'/'templates', BASE_DIR/'company_profile'/'templates' ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

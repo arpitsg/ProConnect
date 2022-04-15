@@ -15,20 +15,20 @@ from .utils import get_random_postfix
 # Create your models here.
 
 
-
-
+GENDER=[
+    ('M', 'Male'),
+    ('F', 'Female'),
+    ('O','Other'),
+    ('S','Prefer not to say')
+]
+PROFILE_CHOICE=[
+    ('U', 'User'),
+    ('C', 'Company')
+] 
 
 class Profile(models.Model):
-    PROFILE_CHOICE=[
-        ('U', 'User'),
-        ('C', 'Company')
-    ] 
-    GENDER=[
-        ('M', 'Male'),
-        ('F', 'Female'),
-        ('O','Other'),
-        ('S','Prefer not to say')
-    ]
+    
+    
     first_name = models.CharField(max_length=200,blank=False)
     last_name = models.CharField(max_length=200,blank=False)
     user=models.OneToOneField(User,on_delete=models.CASCADE)

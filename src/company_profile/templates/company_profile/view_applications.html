@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+{% for app,form in zipped %}
+<form action="#" method="post">
+
+    <div class="card bg-light mb-3">
+      <div class="card-header">Application from {{app.seeker.profile.first_name}} </div>
+      <div class="card-body">
+        <h5 class="card-title">Set application status to : {{app.status}}</h5>
+        <p class="card-text"><a href= "{% url 'profiles:other_user'  app.seeker.id %}" >
+            <h2>check {{app.seeker.profile.first_name}}'s Profile  </h2>
+        </a></p>
+        {% csrf_token %}
+
+        {{form|crispy}}
+      </div>
+      <button type="submit" class="btn btn-block btn-primary btn-md"  name="application_update" data-mdb-ripple-color="dark">Submit</button>
+
+    </div>
+  
+
+</form>
+
+{% endfor %}
+
+
+{% endblock content %}

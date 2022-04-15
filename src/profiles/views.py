@@ -1,6 +1,6 @@
 from django import forms
 from django.http import HttpResponseRedirect
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from requests import request
 from .models import Profile , Skills  ,Address,Award,Education,Experience,Projects,Languages
 from .forms import ProfileModilfy ,SkillModilfy,LangModilfy,ExperienceModify,EducationModify,ProjectModify
@@ -9,6 +9,46 @@ import datetime
 import folium
 import geocoder
 from .utils import get_ip_address,get_geo
+
+def other_user(request,id):
+    print('no found',id)
+    user=get_object_or_404(User,id=id)
+    print('user_found')
+    profile = get_object_or_404(Profile,user=user)
+    print('profiler_found')
+    try:
+        educations=list(Education.objects.filter(profileID=user).order_by('start_date'))
+    except Education.DoesNotExist:
+        educations=None
+    try:
+        awards=list(Award.objects.filter(profileID=user))
+    except Award.DoesNotExist:
+        awards=None
+    try:
+        experiences=list(Experience.objects.filter(profileID=user).order_by('start_date'))
+    except Experience.DoesNotExist:
+        experiences=None
+    try:
+        projects=list(Projects.objects.filter(profileID=user).order_by('start_date'))
+    except Experience.DoesNotExist:
+        projects=None
+    try:
+        skills=list(Skills.objects.filter(profileID=user).order_by('proficiency'))
+    except Experience.DoesNotExist:
+        skills=None
+    try:
+        languages=list(Languages.objects.filter(profileID=user))
+    except Experience.DoesNotExist:
+        languages=None
+
+    dic={'skills':skills,
+        'educations':educations,
+        'awards':awards,
+        'experiences':experiences,
+        'projects':projects,
+        'languages':languages
+    }
+    return render(request,'profiles/other_user.html',dic)
 
 def map(request):
     
@@ -80,10 +120,7 @@ def edit_skills(request):
 
 def my_profile_view(request):
     # print("Userid->",request.user)
-    try:
-        profile = Profile.objects.get(user=request.user)
-    except Profile.DoesNotExist:
-        profile = None
+    profile = get_object_or_404(Profile,user=request.user)
     try:
         address=list(Address.objects.filter(profileID=request.user))
     except Address.DoesNotExist:

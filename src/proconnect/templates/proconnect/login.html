@@ -5,16 +5,134 @@ my profile
 {% endblock title %}
 
 {% block content %}
-{% load crispy_forms_tags %}        
-<!--Login--> 
-<div class="container py-5">
-  <h1>Login</h1>
-  <form method="POST">
-    {% csrf_token %}
-    {{ login_form|crispy }}
-    <button class="btn btn-primary" type="submit">Login</button>
-  </form>
-  <p class="text-center">Don't have an account? <a href="/register">Create an account</a>.</p>
-</div>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert" >{{ message|safe }}</div>
+  {% endfor %}
+{% endif %}
+<h1  text-align: center;>Welcome to ProConnect</h1>
+<form action='' method="post">
 
+{% csrf_token %}
+
+
+<div class="container py-5 h-100">
+	<div class="row d-flex justify-content-center align-items-center h-100">
+	<div class="col-12">
+		<div class="card card-registration card-registration-2" style="border-radius: 15px;">
+		<div class="card-body p-0">
+			<div class="row g-0">
+			<div class="col-lg-6 col-lg-6  ">
+				<div class="p-5">
+        
+              
+                  <h1 class="w-100">Din't Have an Account </h1>
+                  <h4>Simply Create your account by clicking the Signup Button</h4>
+                  <br><br>
+                  <button type="button"  class="btn btn-outline-primary btn-lg">
+                    <a href="{% url 'register_user' %}" class="ui item">
+                      Register a User
+                    </a></button><br><br><br>
+                  <button type="button" href="" class="btn btn-outline-primary btn-lg"><a href="{% url 'register_company' %}" class="ui item">
+                    Register a Company
+                  </a></button>
+        
+        
+
+	
+
+
+
+				</div>
+			</div>
+			<div class="col-lg-6 bg-indigo text-white">
+				<div class="p-5">
+
+    <h1 class="fw-normal mb-5" style="color: #ffffff;">Login</h1>
+
+
+				<div class="mb-4 pb-2">
+					<div class="form-outline form-white">
+						<label class="form-label" for="form3Examplea3">Username</label>
+
+					<input type="text" name="username" required id="form3Examplea3" class="form-control form-control-lg" />
+					</div>
+				</div>
+
+			
+
+				<div class="mb-4 pb-2">
+					<div class="form-outline form-white">
+					<label class="form-label" for="form3Examplea6">Password</label>
+
+					<input type="password"  required name="password" id="password" class="form-control form-control-lg" />
+					</div>
+				</div>
+
+
+				<button type="submit" class="btn btn-light btn-lg" id="register_user_submit" name="login_submit" data-mdb-ripple-color="dark">Login</button>
+
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+</form>
+<script>
+			var password = document.getElementById("password1")
+			, confirm_password = document.getElementById("password2");
+
+			function validatePassword(){
+			if(password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Passwords Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
+			}
+
+			password.onchange = validatePassword;
+			confirm_password.onkeyup = validatePassword;
+
+
+</script>
+<style>
+	@media (min-width: 1025px) {
+		.h-custom {
+				height: 100vh !important;
+		}
+	}
+	.card-registration .select-input.form-control[readonly]:not([disabled]) {
+		font-size: 1rem;
+		line-height: 2.15;
+		padding-left: .75em;
+		padding-right: .75em;
+	}
+	.card-registration .select-arrow {
+		top: 13px;
+	}
+
+
+	.bg-indigo {
+		background-color: #1d117e;
+	}
+
+	.bg-blue {
+		background-color: #ffffff;
+	}
+	@media (min-width: 992px) {
+		.card-registration-2 .bg-indigo {
+				border-top-right-radius: 15px;
+				border-bottom-right-radius: 15px;
+		}
+	}
+	@media (max-width: 991px) {
+		.card-registration-2 .bg-indigo {
+				border-bottom-left-radius: 15px;
+				border-bottom-right-radius: 15px;
+		}
+	}
+</style>
 {% endblock %}
