@@ -48,6 +48,11 @@ INSTALLED_APPS = [
     'django_extensions',
     
 ]
+TIME_ZONE = 'Asia/Kolkata'
+
+USE_TZ = True
+USE_I18N = True
+USE_L10N = True
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 LOGOUT_REDIRECT_URL = '/'
 MIDDLEWARE = [

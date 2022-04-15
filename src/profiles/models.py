@@ -78,8 +78,8 @@ class Education (models.Model):
     school = models.CharField(max_length=250,blank=False)
     degree=models.CharField(max_length=250,blank=True)
     field=models.CharField(max_length=250,blank=True)
-    start_date = models.DateField(blank=False)
-    end_date_expected = models.DateField(blank=False)
+    start_date = models.DateField(blank=False,null=True)
+    end_date_expected = models.DateField(blank=False,null=True)
     grade=models.CharField(max_length=250,blank=True)
     description = models.CharField(max_length=2500,blank=True)
     profileID=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -96,10 +96,11 @@ class Experience (models.Model):
     title = models.CharField(max_length=250,blank=False)
     employement_type = models.CharField(max_length=15,choices=EMPLOYMENT_CHOICE,default='Full-time')
     company_name=models.CharField(max_length=250,blank=False)
-    start_date = models.DateField(blank=False)
+    start_date = models.DateField(blank=False,null=True)
     end_date =models.DateField(blank=True,null=True)
     description = models.CharField(blank=True,max_length=2500)
     profileID=models.ForeignKey(User,on_delete=models.CASCADE)
+    is_current=models.BooleanField(default=True)
 
 class Skills (models.Model):  
     title = models.CharField(max_length=250,blank=False)
@@ -151,12 +152,13 @@ class Projects (models.Model):
        ('Done','Done')
     ]
     title = models.CharField(max_length=250,blank=False)
-    start_date = models.DateField(blank=False) 
+    start_date = models.DateField(blank=False,null=True) 
     end_date = models.DateField(blank=True,null=True)
     mentor = models.CharField(blank=True,max_length=250)
     description = models.CharField(blank=True,max_length=250)
     status=models.CharField(max_length=20,choices=STATUS_CHOICE)
     profileID=models.ForeignKey(User,on_delete=models.CASCADE)
+
 
 
 
@@ -170,16 +172,3 @@ class Address(models.Model):
         longitude=models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
 
 
-class Relationship(models.Model):
-    STATUS_CHOICE=[
-        ('Sent','Sent'),
-        ('Accepted','Accepted')
-    ]
-    sender=models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='sender')
-    receiver=models.ForeignKey(Profile,on_delete=models.CASCADE,related_name='receiver')
-    status = models.CharField(max_length=8,choices=STATUS_CHOICE)
-    last_updated_time=models.DateTimeField(auto_now=True)
-    created_time=models.DateTimeField(auto_now_add=True)
-
-    def __str__(self) -> str:
-        return f"{self.sender}-{self.receiver}-{self.status}"

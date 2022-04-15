@@ -22,13 +22,34 @@ def view_applications(request,id):
      applications=Application.objects.filter(job=job)
      if request.method=='POST':
          print(request.POST)
-    
+         re=request.POST
+         form_id=int(re.get('id'))
+         for app in applications:
+             if app.seeker.id==form_id:
+                 form=Application_Update(re,instance=app)
+                 if form.is_valid():
+                     form.save()
+
+        
      forms=[Application_Update(instance=i) for i in applications]
      context={'applications':applications,
                         'forms':forms,
                         'zipped': zip(applications,forms)
                         }
      return render(request,'company_profile/view_applications.html',context)
+
+def applied_job_list(request):
+    applied_list = Application.objects.filter(seeker=request.user)
+    paginator = Paginator(applied_list, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    context = {
+
+        'page_obj': page_obj,
+
+    }
+    return render(request, 'company_profile/applied_job_list.html', context)
 
 def my_profile_company_view(request):
 

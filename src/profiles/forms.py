@@ -6,10 +6,14 @@ class ProfileModilfy(forms.ModelForm):
     class Meta:
         model=Profile
         fields=('first_name', 'last_name','about_us','headline','picture')
+
+        
 class SkillModilfy(forms.ModelForm):
     class Meta:
         model=Skills
         fields=('title', 'proficiency')
+
+
 class LangModilfy(forms.ModelForm):
     class Meta:
         model=Languages
@@ -19,7 +23,7 @@ class LangModilfy(forms.ModelForm):
 class ExperienceModify(forms.ModelForm):
     class Meta:
         model=Experience
-        fields=('title','employement_type','company_name','description','start_date','end_date','description')
+        fields=('title','employement_type','company_name','description','start_date','end_date','description','is_current')
         widgets = {
             'start_date': DateInput(attrs={'type': 'date'}),
             'end_date':DateInput(attrs={'type': 'date'})

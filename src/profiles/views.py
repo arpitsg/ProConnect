@@ -1,5 +1,5 @@
 from django import forms
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from requests import request
 from .models import Profile , Skills  ,Address,Award,Education,Experience,Projects,Languages
@@ -10,6 +10,158 @@ import folium
 import geocoder
 from .utils import get_ip_address,get_geo
 
+def add_education(request):
+    form=EducationModify()
+    print('here')
+    if request.method=='POST':
+        print(request.POST)
+        edu=Education.objects.create(profileID=request.user)
+        form=EducationModify(request.POST,instance=edu)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+
+def add_experience(request):
+    form=ExperienceModify()
+    if request.method=='POST':
+        print(request.POST)
+        exp=Experience.objects.create(profileID=request.user)
+        form=ExperienceModify(request.POST,instance=exp)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+
+
+def add_project(request):
+    form=ProjectModify()
+    if request.method=='POST':
+        print(request.POST)
+        exp=Projects.objects.create(profileID=request.user)
+        form=ProjectModify(request.POST,instance=exp)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+def add_language(request):
+    form=LangModilfy()
+    if request.method=='POST':
+        print(request.POST)
+        exp=Languages.objects.create(profileID=request.user)
+        form=LangModilfy(request.POST,instance=exp)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+
+def add_skill(request):
+    form=SkillModilfy()
+    if request.method=='POST':
+        print(request.POST)
+        exp=Skills.objects.create(profileID=request.user)
+        form=SkillModilfy(request.POST,instance=exp)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+def edit_language(request,id):
+    lang=Languages.objects.get(id=id)
+    form=LangModilfy(instance=lang)
+    if request.method=='POST':
+        print(request.POST)
+        
+        if(lang.profileID!=request.user):
+            return HttpResponseNotFound('<h1>Invalid access </h1>')
+        form=LangModilfy(request.POST,instance=lang)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+
+def edit_skill(request,id):
+    lang=Skills.objects.get(id=id)
+    form=SkillModilfy(instance=lang)
+    if request.method=='POST':
+        print(request.POST)
+        
+        if(lang.profileID!=request.user):
+            return HttpResponseNotFound('<h1>Invalid access </h1>')
+        form=SkillModilfy(request.POST,instance=lang)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+
+def edit_education(request,id):
+    lang=Education.objects.get(id=id)
+    form=EducationModify(instance=lang)
+    if request.method=='POST':
+        print(request.POST)
+        
+        if(lang.profileID!=request.user):
+            return HttpResponseNotFound('<h1>Invalid access </h1>')
+        form=EducationModify(request.POST,instance=lang)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+
+def edit_project(request,id):
+    lang=Projects.objects.get(id=id)
+    form=ProjectModify(instance=lang)
+    if request.method=='POST':
+        print(request.POST)
+      
+        if(lang.profileID!=request.user):
+            return HttpResponseNotFound('<h1>Invalid access </h1>')
+        form=ProjectModify(request.POST,instance=lang)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+def edit_experience(request,id):
+    lang=Experience.objects.get(id=id)
+    form=ExperienceModify(instance=lang)
+    if request.method=='POST':
+        print(request.POST)
+        
+        if(lang.profileID!=request.user):
+            return HttpResponseNotFound('<h1>Invalid access </h1>')
+        form=ExperienceModify(request.POST,instance=lang)
+        if form.is_valid():
+            form.save()
+        return redirect('/profiles/myprofile/')
+    dic={'form':form}
+    return render(request,'profiles/form.html',dic)
+
+def delete_skill(request,id):
+    Skills.objects.get(id=id).delete()
+    return redirect('/profiles/myprofile/')
+def delete_language(request,id):
+    Languages.objects.get(id=id).delete()
+    return redirect('/profiles/myprofile/')
+def delete_education(request,id):
+    Education.objects.get(id=id).delete()
+    return redirect('/profiles/myprofile/')
+def delete_experience(request,id):
+    Experience.objects.get(id=id).delete()
+    return redirect('/profiles/myprofile/')
+def delete_project(request,id):
+    Projects.objects.get(id=id).delete()
+    return redirect('/profiles/myprofile/')
+
+    
+    
 def other_user(request,id):
     print('no found',id)
     user=get_object_or_404(User,id=id)

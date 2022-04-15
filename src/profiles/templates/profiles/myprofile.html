@@ -40,18 +40,23 @@ my profile
 
             <div class="card-box">
                 <h4 class="header-title">Skills</h4>
-                
+                <span style="display:flex; justify-content:flex-start; width:100%; padding:0;">
+                <a href="{% url 'profiles:add_skill' %}" >
+                  <input type="submit"   class="btn btn-block btn-primary btn-md" value="Add Skills" />
+                </a>
+                </span> 
                 {% for skill in skills %}
                 <div class="list-group-item">
-                    <div align='right'>
-                        <!-- <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
-                            {% csrf_token %}
-                            <button class="btn btn-success btn-sm rounded-0" id='skill-model-edit' name='id_edit' value={{skill.id}} type="submit"  title="Edit"><i class="fa fa-edit"></i></button> 
-                        </form> -->
-                            <!-- <button class="btn btn-success btn-sm rounded-0" name="skill_model_edit" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
+                    
+                        <div align='right'>
+                            <a href="{% url  'profiles:edit_skill' skill.id %}" >
+                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
+                            </a>
+                            <a href="{% url  'profiles:delete_skill' skill.id %}" >
                             <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-              -->
-                  </div>
+                        </a>
+                        </div>
+                       
                     <div class="mt-2 pt-1">
                         <h6 class="text-uppercase mt-0">{{skill.title}}<span class="float-right">{{skill.proficiency}}%</span></h6>
                         <div class="progress progress-sm m-0">
@@ -67,32 +72,27 @@ my profile
               
               
 
-            </div> <!-- end card-box-->
-
-          <!-- MODAL -->
-<!-- <div class="ui modal mymodal">
-    <form action="" method="POST" class="ui form" enctype='multipart/form-data'>
-        {% csrf_token %}
-        {{form_profile.as_p}}
-    <button type='submit' class="ui positive right labeled icon button"  name="profile_submit" data-backdrop="false">
-      Update
-      <i class="checkmark icon"></i>
-    </button>
-    </form>
-    
-  </div> -->
+            </div> 
 
   
             <div class="card-box">
                 <h4 class="header-title">Languages</h4>
-                
+                <span style="display:flex; justify-content:flex-start; width:100%; padding:0;">
+                <a href="{% url  'profiles:add_language' %}" >
+                  <input type="submit"   class="btn btn-block btn-primary btn-md" value="Add Languages" />
+                </a>
+                </span> 
            
                 {% for language in languages %}
                 <div class="list-group-item">
-                    <!-- <div align='right'>
-                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
+                    <div align='right'>
+                        <a href="{% url  'profiles:edit_language' language.id %}" >
+                            <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
+                        </a>
+                        <a href="{% url  'profiles:delete_language' language.id %}" >
                         <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                    </div> -->
+                    </a>
+                    </div>
                       
                 <div class="mt-2 pt-1">
                     <h6 class="text-uppercase mt-0">{{language.language_name}}</h6>
@@ -126,11 +126,7 @@ my profile
                             <i class="mdi mdi-face-profile mr-1"></i>About Me
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#change_pane" data-toggle="tab" aria-expanded="false" class="nav-link" style="color:rgb(250, 250, 250);" >
-                          Edit
-                        </a>
-                    </li>
+                    
                     <li class="nav-item">
                         <a href="#profile_pane" data-toggle="tab" aria-expanded="false" class="nav-link" style="color:rgb(255, 255, 255);">
                             <i class="mdi mdi-settings-outline mr-1"></i>Profile Edit
@@ -142,10 +138,16 @@ my profile
                 <div class="tab-content">
 
                     <div class="tab-pane show active" id="about-me">
-                        {% if educations%}
+                      
                         <h5 class="mb-4 text-uppercase"><i class="mdi mdi-briefcase mr-1"></i>
                             Education</h5>
-                        {% endif %}
+                            
+                        <span style="display:flex; justify-content:flex-start; width:100%; padding:0;">
+                        <a href="{% url 'profiles:add_education' %}" >
+                          <input type="submit"   class="btn btn-block btn-primary btn-md" value="Add Education" />
+                        </a>
+                        </span>
+                                
                         <ul class="list-unstyled timeline-sm">
 
                             <!-- <p class="text-muted mt-2">No education details entered</p> -->
@@ -157,6 +159,14 @@ my profile
                                 <span class="timeline-sm-date">{{edu.start_date.year}} to {{edu.end_date_expected.year}}</edu></span>
                               <div class="card">
                                 <div class="card-header">
+                                    <div align='right'>
+                                        <a href="{% url  'profiles:edit_education' edu.id %}" >
+                                            <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
+                                        </a>
+                                        <a href="{% url  'profiles:delete_education' edu.id %}" >
+                                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                    </a>
+                                    </div>
                                     <h5 class="card-title">{{edu.school}}</h5>
                                     <!-- <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
                                     <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button> -->
@@ -174,34 +184,42 @@ my profile
                             </li>
                             {% endfor %}
                         </ul>
-                        {% if experiences %}
+                    
                         <h5 class="mb-4 text-uppercase"><i class="mdi mdi-briefcase mr-1"></i>
                             Experience </h5>
-                        
+                        <span style="display:flex; justify-content:flex-start; width:100%; padding:0;">
+                        <a href="{% url 'profiles:add_experience' %}" >
+                          <input type="submit"   class="btn btn-block btn-primary btn-md" value="Add Experience" />
+                        </a>
+                        </span>
                         <ul class="list-unstyled timeline-sm">
 
                             <!-- <p class="text-muted mt-2">No education details entered</p> -->
-                      
+                            
                             {% for experience in experiences %}
                            <li class="timeline-sm-item">
-                                {% if experience.end_date == None %}
+                                {% if experience.is_current == True %}
                                    <span class="timeline-sm-date">Current job <br>since {{experience.start_date.month}} / {{experience.start_date.year}} </edu></span>
                                 {%else %}
                                   <span class="timeline-sm-date">{{experience.start_date.month}} / {{experience.start_date.year}} to <br> {{experience.end_date.month}} / {{experience.end_date.year}}</edu></span>
                                 {% endif %}
                                  <div class="card">
                                    <div class="card-header">
+                                    <div align='right'>
+                                           <a href="{% url  'profiles:edit_experience' experience.id %}" >
+                                               <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
+                                           </a>
+                                           <a href="{% url  'profiles:delete_experience' experience.id %}" >
+                                           <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
+                                        </a>
+                                        </div>
                                        <h5 class="card-title">{{experience.title}} at {{experience.company_name}} <br> Employed as : {{experience.employement_type}}</h5>
-                                       <!-- <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button> 
-                                       <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button> -->
-
+                              
                                    </div>
                                        <div class="card-body">
 
                                    <p>{{experience.description}} </p>
 
-                                   <!-- <p>{{edu.grade}}</p>
-                                   <p>{{edu.description}}</p> -->
                                 
                                </div>
                            </div>
@@ -209,20 +227,25 @@ my profile
                             {% endfor %}
                         </ul>
                         
-                        {% endif %}
+                       
                         
                        
                        
                         
-                        {% if projects %}
+                        
                         <h5 class="mb-3 mt-4 text-uppercase"><i class="mdi mdi-cards-variant mr-1"></i>
-                            Projects</h5> <span style="display:inline"> 
-                                <button type='submit' class="ui positive button">
-                                Add    Project
-                              </button>
-                            </span>
+                            Projects</h5>
+                            <span style="display:flex; justify-content:flex-start; width:100%; padding:0;">
+                            <a href="{% url 'profiles:add_project' %}" >
+                              <input type="submit"   class="btn btn-block btn-primary btn-md" value="Add Projects" />
+                            </a>
+                            </span> 
+                           
+                            {% if projects %}
+                            
                               <div class="table-responsive">
                                 <table class="table table-borderless mb-0">
+                                    
                                     <thead class="thead-light">
                                         <tr>
                                             
@@ -232,10 +255,11 @@ my profile
                                             <th>Status</th>
                                             <th>Mentor</th>
                                             <th>Description</th>
-                                            <!-- <th></th>
-                                            <th></th> -->
+                                            <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
                                         {% for project in projects %}
                                         <tr>
@@ -246,11 +270,18 @@ my profile
                                             <td><span class="badge badge-info">{{project.status}}</span></td>
                                             <td>{{project.mentor}}</td>
                                             <td>{{project.description}}</td>
-                                            <!-- <td >
-                                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>                                            </td>
                                             <td >
+                                                <a href="{% url  'profiles:edit_project' project.id %}" >
+                                                <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Edit"><i class="fa fa-edit"></i></button>                     
+                                                </a>                        
+                                            </td>
+                                             
+                                                <td >
+                                                    <a href="{% url  'profiles:delete_project' project.id %}" >
                                                 <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button>
-                                            </td> -->
+                                                </a>    
+
+                                            </td>
                                         </tr>
                                         {% endfor %}
                                         
@@ -258,13 +289,8 @@ my profile
                                     </tbody>
                                 </table>
                             </div>
+                            {% endif %}
 
-                        {% else %}
-                        <h5 class="mb-3 mt-4 text-uppercase"><i class="mdi mdi-cards-variant mr-1"></i>
-                            Projects</h5> <span style="display:inline"> <button type='submit' class="ui positive button">
-                                Add Project
-                              </button></span>
-                        {% endif %}
                         
                     </div>
                     <!-- end timeline content-->
@@ -281,234 +307,8 @@ my profile
                         </form>
 
                     </div>
-                    <div class="tab-pane" id="change_pane">
-                        <!-- <form method="POST" action="">
-                            {% csrf_token %}
-                         
-                
-                        <div class="ui large form">
-                            <div class="two fields">
-                              <div class="field">
-                                <label>Skill name</label>
-                                <input placeholder="Skill name" type="text">
-                              </div>
-                              <div class="field">
-                                <label>Proficiency</label>
-                                <input placeholder="Proficiency" type="number" min="1" max="100">
-                              </div>
-                            </div>
-                          </div>
-                        
-                        <button type='submit' class="ui positive right labeled icon button"  name="skill_submit"></button>
-                        
-                    </form> -->
-                    
-                    <form  method="POST" action="">
-                        {% csrf_token %}
-                        <h1 class="h3 mb-3 font-weight-normal">Update your skills </h1>
-                        {% for form in skill_form %}
-                        <div class="card">
-                            <div class="card-body pl-5 pr-5">
-                                <div class="form-row">
-                                    <!-- <div class="form-group col-md-6">
-                                        <label for="Skill Name" >Skill Name</label>
-                                        <input type="text" value={{skill.title}} id="skillname" class="form-control" name="skillname" placeholder="Enter Skill Name" required
-                                            autofocus>
-                                    </div>
-                                    <div class="form-group col-md-4">
-                                        <label for="proficiency">Proficiency</label>
-                                        <input type="number"  min="1" max="100" value={{skill.proficiency}} id="proficiency" class="form-control" name="proficiency" placeholder="Enter Proficiency" required>
-                                    </div> -->
-                                    {{form}}
-                                </div>
-                            </div>
-                        </div>
-                        
-
-                        {% endfor %}
-                        <button class="btn btn btn-primary btn-block" name="skill_modilfy_submit" type="submit">Submit</button>
-
-                    </form>
-                    
-<!-- 
-
-                    <form  method="POST" action="">
-                        {% csrf_token %}
-                        <h1 class="h3 mb-3 font-weight-normal">Update your language </h1>
-                        {% for language in languages %}
-                        <div class="card">
-                            <div class="card-body pl-5 pr-5">
-
-                                <div class="form-row">
-                                        <tr><th><label for="id_language_name">Language name:</label></th><td><input type="text" name="language_name" value={{language.language_name}} maxlength="250" required id="id_language_name"></td></tr>
-        
-                                        <tr><th><label for="id_proficiency" value={{language.language_name}}>Proficiency:</label></th><td>
-                                        <select name="proficiency" selected id="id_proficiency">
-                                        <option value="Elementary-proficiency" {%if language.proficiency == "Elementary-proficiency" %} selected {% endif %}>Elementary proficiency</option>
-
-                                        <option value="Limited-working-proficiency" {%if language.proficiency == "Limited-working-proficiency" %} selected {% endif %}>Limited working proficiency</option>
-
-                                        <option value="Professional-working-proficiency"  {%if language.proficiency == "Professional-working-proficiency" %} selected {% endif %} >Professional working proficiency</option>
-
-                                        <option value="Full-professional-proficiency" {%if language.proficiency == "Full-professional-proficiency" %} selected {% endif %}>Full professional proficiency</option>
-
-                                        <option value="Native-or-bilingual-proficiency" {%if language.proficiency == "Native-or-bilingual-proficiency" %} selected {% endif %} >Native or bilingual proficiency</option>                              
-                                        </select>
-                                        </td></tr>
-                                    </div>  
-                              </div> 
-                            </div>
-                        </div>
-                  
-                     
-                        {% endfor %}
-                        <button class="btn btn btn-primary btn-block" name="language_modilfy_submit" type="submit">Submit</button>
-
-                    </form  > -->
-                   
-                    <!-- <form method="POST" action="">
-                        {% csrf_token %}
-                        <h1 class="h3 mb-3 font-weight-normal">Update your experiences </h1>
-                        {% for experience in experiences %}
-                        <div class="card">
-                        <div class="card-body pl-5 pr-5">
-
-                            <div class="form-row">
-                        <tr><th><label for="id_title">Title:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="text" name="title" maxlength="250" required id="id_title" value={{experience.title}}></td></tr>
-                        <tr><th><label for="id_employement_type">Employement type:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><select name="employement_type" required id="id_employement_type">
-
-                          <option value="Full-time" {%if experience.employement_type == "Full-time" %} selected {% endif %}>Full-time</option>
-
-                          <option value="Part-time"  {%if experience.employement_type == "Part-time" %} selected {% endif %}>Part-time</option>
-
-                          <option value="Self-employed" {%if experience.employement_type == "Self-employed" %} selected {% endif %}>Self-employed</option>
-
-                          <option value="Freelance"  {%if experience.employement_type == "Freelance" %} selected {% endif %}>Freelance</option>
-
-                          <option value="Internship"  {%if experience.employement_type == "Internship" %} selected {% endif %}>Internship</option>
-
-                        </select></td></tr>
-                        <tr><th><label for="id_company_name">Company name:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="text" value={{experience.company_name}} name="company_name" maxlength="250" required id="id_company_name"></td></tr>
-                        <tr><th><label for="id_description">Description:</label></th><td><input type="text" value={{experience.description}} name="description" maxlength="2500" id="id_description"></td></tr>
-                        <tr><th><label for="id_start_date">Start date:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="date" value={{experience.start_date}} name="start_date" required id="id_start_date"></td></tr>
-                        <tr><th><label for="id_end_date">End date: </label></th><td><ul class="errorlist"><li>Leave empty if current job</li></ul><input type="date"  value={{experience.end_date}} name="end_date"  id="id_end_date"></td></tr>
-                        
-
-                            <input type="checkbox" {% if experience.is_current == True %} checked {% endif %}  name="is_current"   id="id_is_current"> 
-  
-                            </div>  
-                              </div> 
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <button class="btn btn btn-primary btn-block" name="experience_modify_submit" type="submit">Submit</button>
-
-                    </form> -->
-<!-- 
-
-                    <form method="POST" action="">
-                        {% csrf_token %}
-                        <h1 class="h3 mb-3 font-weight-normal">Update your education details </h1>
-                        {% for education in educations %}
-                        <div class="card">
-                        <div class="card-body pl-5 pr-5">
-
-                            <div class="form-row">
-
-                    <tr><th><label for="id_school">School:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="text" {% if education.school %} value={{education.school}} {% endif %} name="school" maxlength="250" required id="id_school"></td></tr>
-                    <tr><th><label for="id_degree">Degree:</label></th><td><input type="text" name="degree" maxlength="250" id="id_degree" {% if education.degree %}   value={{education.degree}} {% endif %} ></td></tr>
-                    <tr><th><label for="id_field">Field:</label></th><td><input type="text"  {% if education.field %}  value={{education.field}}  {% endif %} name="field" maxlength="250" id="id_field"></td></tr>
-                    <tr><th><label for="id_start_date">Start date:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="date" name="start_date" value={{education.start_date}} required id="id_start_date"></td></tr>
-                    <tr><th><label for="id_end_date_expected">End date expected:</label></th><td><ul class="errorlist"><li>This field is required.</li></ul><input type="date" name="end_date_expected" value={{education.end_date_expected}} required id="id_end_date_expected"></td></tr>
-                    <tr><th><label for="id_grade">Grade:</label></th><td><input type="text" name="grade" {% if education.grade %}  value={{education.grade}}  {% endif %}  maxlength="250" id="id_grade"></td></tr>
-                    <tr><th><label for="id_description">Description:</label></th><td><input type="text"  {% if education.description %}  value={{education.description}} {% endif %} name="description" maxlength="2500" id="id_description"></td></tr>
-                    </div>  
-                          </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                    <button class="btn btn btn-primary btn-block" name="education_modilfy_submit" type="submit">Submit</button>
-
-                </form> -->
-                <form method="POST" action="">
-                  {% csrf_token %}
-                     <h1 class="h3 mb-3 font-weight-normal">Update your Experience </h1>
-                     {% for form in experience_form %}
-                     <div class="card">
-                     <div class="card-body pl-5 pr-5">
-
-                         <div class="form-row">
-                        {{form}}
-
-                      </div>  
-                                  <!-- </div> -->
-                                  </div>
-                              </div>
-                    {% endfor %}
-                    <button class="btn btn btn-primary btn-block" name="experience_modilfy_submit" type="submit">Submit</button>
-
-                </form>
-
-                <form method="POST" action="">
-                  {% csrf_token %}
-                     <h1 class="h3 mb-3 font-weight-normal">Update your language </h1>
-                     {% for form in language_form %}
-                     <div class="card">
-                     <div class="card-body pl-5 pr-5">
-
-                         <div class="form-row">
-                        {{form}}
-
-                      </div>  
-                                  <!-- </div> -->
-                                  </div>
-                              </div>
-                    {% endfor %}
-                    <button class="btn btn btn-primary btn-block" name="language_modilfy_submit" type="submit">Submit</button>
-
-                </form>
-                <form method="POST" action="">
-                  {% csrf_token %}
-                     <h1 class="h3 mb-3 font-weight-normal">Update your Education </h1>
-                     {% for form_ in education_form %}
-                     <div class="card">
-                     <div class="card-body pl-5 pr-5">
-
-                         <div class="form-row">
-                        {{form_}}
-
-                      </div>  
-                                  <!-- </div> -->
-                                  </div>
-                              </div>
-                    {% endfor %}
-                    <button class="btn btn btn-primary btn-block" name="education_modilfy_submit" type="submit">Submit</button>
-
-                </form>
-                
 
                 
-                <form method="POST" action="">
-                  {% csrf_token %}
-                     <h1 class="h3 mb-3 font-weight-normal">Update your Projects </h1>
-                     {% for form in project_form %}
-                     <div class="card">
-                     <div class="card-body pl-5 pr-5">
-
-                         <div class="form-row">
-                        {{form}}
-              
-                      </div>  
-                                  <!-- </div> -->
-                                  </div>
-                              </div>
-                    {% endfor %}
-                    <button class="btn btn btn-primary btn-block" name="project_modilfy_submit" type="submit">Submit</button>
-
-                </form>
-
-
-                    </div>
                     <!-- end skill_pane content-->
 
                 </div> <!-- end tab-content -->

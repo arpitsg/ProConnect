@@ -44,7 +44,7 @@ class Job(models.Model):
     location = models.CharField(max_length=255,default='-')
     description = models.TextField(blank=False,default='-')
     experience_required=models.CharField(max_length=200,blank=False,default='-')
-    salary=models.IntegerField(blank=True,default=-1)
+    salary=models.IntegerField(blank=True,default=0)
     skills_req = models.CharField(max_length=200)
     job_type = models.CharField(
         max_length=30, choices=CHOICES, default='Full Time', null=True)
@@ -89,6 +89,7 @@ class Application(models.Model):
     seeker = models.ForeignKey(User, on_delete=models.CASCADE)
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     date_posted = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField( auto_now=True)
     status = models.CharField(max_length=15,
                               choices=APPLICATION_CHOICES,
                               default='Active')
