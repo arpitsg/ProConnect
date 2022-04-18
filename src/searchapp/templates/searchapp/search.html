@@ -69,25 +69,24 @@ my profile
         {% endfor %}
 
         {% for user in page_obj2 %}
-          <div class="col-xxl-6 col-md-12">
-            <div class="card text-center">
-              <h3>{{ user.first_name }} {{ user.last_name }}</h3>
-              <ul class="job-listing-meta list-unstyled pl-3 mb-0">
-                <li class="menu-fix mb-2">
-
-                  <span class="badge badge-primary">
-                    {{user.headline}}
-                  </span>
-              </li>
-                <li class="badge badge-secondary menu-fix mb-2"> {{ user.headline }}</li>
-              </ul>
-              <p>{{ user.about_us | safe | truncatechars:100}}</p>
-              <a href="{% url 'profiles:other_user' user.user_id   %}" >
-                <input type="submit"  name="withdraw" class="btn btn-block btn-primary btn-md" value="Read More" />
-              </a>
-
+        <div class="card mb-3" >
+          <div class="row g-0">
+            <div class="col-md-4">
+                <img src={{user.picture.url}} class="rounded-circle avatar-xl img-thumbnail" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">  <h3>{{ user.first_name }} {{ user.last_name }}</h3></h5>
+                <p class="card-text">{{ user.about_us | safe | truncatechars:100}}</p>
+<a href="{% url 'profiles:other_user' user.user_id   %}" >
+  <input type="submit"  name="withdraw" class="btn btn-block btn-primary btn-md" value="See Profile" />
+</a>
+    
+              </div>
             </div>
           </div>
+        </div>
+
 
         {% endfor %}
         {% for com in page_obj3 %}
