@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'searchapp',
     'django_non_dark_admin',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'company_profile',
     'django_extensions',
+    
     
 ]
 TIME_ZONE = 'Asia/Kolkata'
@@ -78,7 +80,7 @@ ROOT_URLCONF = 'proconnect.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates' , BASE_DIR/'proconnect'/'templates', BASE_DIR/'company_profile'/'templates' ],
+        'DIRS': [BASE_DIR / 'templates' , BASE_DIR/'proconnect'/'templates', BASE_DIR/'company_profile'/'templates' ,BASE_DIR/'searchapp'/'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

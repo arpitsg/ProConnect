@@ -16,6 +16,12 @@ from profiles.models  import Profile
 from company_profile.models import  Company_profile
 from django.contrib.auth import authenticate, login
 
+def search_results(request):
+    print('search_results')
+    search_post = request.GET.get('search')
+    print(search_post)
+    return render (request, 'proconnect/register_company.html')
+    
 
 def home_view(request):
     
@@ -88,6 +94,7 @@ def register_request_user(request):
         return render (request, 'proconnect/register_user.html')
 
 def login_request(request):
+    
     if request.method == "POST":
         print(request.POST)
         # form = AuthenticationForm(request, data=request.POST)

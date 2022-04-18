@@ -1,0 +1,298 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+my profile
+{% endblock title %}
+
+{% block content %}
+<h1 center>
+    Search User or company or Jobs
+</h1>
+<section class="search-sec">
+    <div class="container">
+        <form action="#" method="post" novalidate="novalidate">
+            {% csrf_token %}
+
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <input type="text" name="search" class="form-control search-slt" placeholder="Enter Search">
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <select name="option"  required class="form-control search-slt">
+<!--                               4 stars and up -->
+                                <option>
+                              <p>User</p>
+                                </option>
+                                <option>
+                                <p>Company</p>
+                                  </option>
+                                  <option>
+                                  <p>Job</p>
+                                    </option>
+
+                            </select>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 p-0">
+                            <button type="submit" name="submit" class="btn btn-primary wrn-btn">Search</button>
+                        </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section id="ajax_listing_paginattion" class="site-section services-section bg-light block__62849" id="next-section">
+    <div class="container">
+  
+      <div class="row">
+        
+        {% for job in page_obj1 %}
+        <div class="col-xxl-6 col-md-12">
+          <div class="card text-center">
+            <h3>{{ job.title }}</h3>
+            <ul class="job-listing-meta list-unstyled pl-3 mb-0">
+              <li class="menu-fix mb-2">
+  
+                <span class="badge badge-primary">
+                  {{job.job_type}}
+                </span>
+            </li>
+              <li class="badge badge-secondary menu-fix mb-2"> {{ job.location }}</li>
+            </ul>
+            <p>{{ job.description | safe | truncatechars:250}}</p>
+            <a href="{% url 'company_profile:single_job_view' job.id %}" >
+              <input type="submit"  name="withdraw" class="btn btn-block btn-primary btn-md" value="Read More" />
+            </a>
+            
+            </div>
+          </div>
+        {% endfor %}
+
+        {% for user in page_obj2 %}
+          <div class="col-xxl-6 col-md-12">
+            <div class="card text-center">
+              <h3>{{ user.first_name }} {{ user.last_name }}</h3>
+              <ul class="job-listing-meta list-unstyled pl-3 mb-0">
+                <li class="menu-fix mb-2">
+
+                  <span class="badge badge-primary">
+                    {{user.headline}}
+                  </span>
+              </li>
+                <li class="badge badge-secondary menu-fix mb-2"> {{ user.headline }}</li>
+              </ul>
+              <p>{{ user.about_us | safe | truncatechars:100}}</p>
+              <a href="{% url 'profiles:other_user' user.user_id   %}" >
+                <input type="submit"  name="withdraw" class="btn btn-block btn-primary btn-md" value="Read More" />
+              </a>
+
+            </div>
+          </div>
+
+        {% endfor %}
+        {% for com in page_obj3 %}
+          <div class="col-xxl-6 col-md-12">
+            <div class="card text-center">
+              <h3>{{ com.company_name }}</h3>
+              <ul class="job-listing-meta list-unstyled pl-3 mb-0">
+                <li class="menu-fix mb-2">
+
+                  <span class="badge badge-primary">
+                    {{com.location}}
+                  </span>
+              </li>
+                <li class="badge badge-secondary menu-fix mb-2"> {{ user.headline }}</li>
+              </ul>
+              <p>{{ com.about_us | safe | truncatechars:100}}</p>
+              <a href="{% url 'company_profile:other_company' com.id %}" >
+                <input type="submit"  name="withdraw" class="btn btn-block btn-primary btn-md" value="Read More" />
+              </a>
+
+            </div>
+          </div>
+
+        {% endfor %}
+      
+
+
+
+      </div>
+  {% if page_obj1.has_other_pages %}
+  <div class="row pagination-wrap">
+    <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+      <span id="page_navigator">Showing {{ page_obj1.number }} of {{ page_obj1.paginator.num_pages }} Pages</span>
+    </div>
+    <div class="col-md-6 text-center text-md-right">
+      <div class="custom-pagination ml-auto">
+
+        <span id="prev_page">
+        {% if page_obj1.has_previous %}
+        <a id="ajax_paginator" href="?page={{ page_obj1.previous_page_number }}" class="prev">Prev</a>
+        {% endif %}
+      </span>
+        <span id="page_no">
+          <div class="d-inline-block">
+            {% for i in page_obj1.paginator.page_range %}
+            {% if page_obj1.number == i %}
+            <a id="ajax_paginator" class="ajax_paginator_{{ i }} active" href="?page={{ i }}">{{ i }}</a>
+
+            {% else %}
+            <a class="ajax_paginator_{{ i }}" id="ajax_paginator" href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </span>
+        {% if page_obj1.has_next %}
+        <span id="next_page">
+          <a id="ajax_paginator" class="next" href="?page={{ page_obj1.next_page_number }}">Next</a>
+        </span>
+        {% endif %}
+
+      </div>
+    </div>
+  </div>
+  {% endif %}
+{% if page_obj2.has_other_pages %}
+<div class="row pagination-wrap">
+  <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+    <span id="page_navigator">Showing {{ page_obj2.number }} of {{ page_obj2.paginator.num_pages }} Pages</span>
+  </div>
+  <div class="col-md-6 text-center text-md-right">
+    <div class="custom-pagination ml-auto">
+
+      <span id="prev_page">
+      {% if page_obj2.has_previous %}
+      <a id="ajax_paginator" href="?page={{ page_obj2.previous_page_number }}" class="prev">Prev</a>
+      {% endif %}
+    </span>
+      <span id="page_no">
+        <div class="d-inline-block">
+          {% for i in page_obj2.paginator.page_range %}
+          {% if page_obj2.number == i %}
+          <a id="ajax_paginator" class="ajax_paginator_{{ i }} active" href="?page={{ i }}">{{ i }}</a>
+
+          {% else %}
+          <a class="ajax_paginator_{{ i }}" id="ajax_paginator" href="?page={{ i }}">{{ i }}</a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </span>
+      {% if page_obj2.has_next %}
+      <span id="next_page">
+        <a id="ajax_paginator" class="next" href="?page={{ page_obj2.next_page_number }}">Next</a>
+      </span>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endif %}
+{% if page_obj3.has_other_pages %}
+<div class="row pagination-wrap">
+  <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+    <span id="page_navigator">Showing {{ page_obj3.number }} of {{ page_obj3.paginator.num_pages }} Pages</span>
+  </div>
+  <div class="col-md-6 text-center text-md-right">
+    <div class="custom-pagination ml-auto">
+
+      <span id="prev_page">
+      {% if page_obj3.has_previous %}
+      <a id="ajax_paginator" href="?page={{ page_obj3.previous_page_number }}" class="prev">Prev</a>
+      {% endif %}
+    </span>
+      <span id="page_no">
+        <div class="d-inline-block">
+          {% for i in page_obj3.paginator.page_range %}
+          {% if page_obj3.number == i %}
+          <a id="ajax_paginator" class="ajax_paginator_{{ i }} active" href="?page={{ i }}">{{ i }}</a>
+
+          {% else %}
+          <a class="ajax_paginator_{{ i }}" id="ajax_paginator" href="?page={{ i }}">{{ i }}</a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </span>
+      {% if page_obj3.has_next %}
+      <span id="next_page">
+        <a id="ajax_paginator" class="next" href="?page={{ page_obj3.next_page_number }}">Next</a>
+      </span>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endif %}
+
+    
+    </div>
+  </section>
+   
+  
+  
+  
+  <style>
+      main.form-group {
+        /*center form inputs */
+        float: none;
+        margin: 0 auto;
+      }
+  
+      main {
+        /* center contents */
+        text-align: center;
+      }
+  
+      .card {
+          margin: 10px;
+          padding: 10px;
+        height: 100%;
+      }
+  
+      .form-control {
+        align-self: flex-end;
+      }
+
+    body
+    {
+        font-family: 'Open Sans', sans-serif;
+        background: #f0f0f0;
+        font-weight: 300;
+        text-align:center;
+    }
+    .container {
+      font-size: 15px;
+    }
+    /*search box css start here*/
+    .search-sec{
+        align-self: center;
+        padding-top: 20em;
+        padding: 1rem;
+        margin-left:15rem;
+        
+    }
+    h1 {
+      text-align: center;
+    }
+
+    .search-slt{
+        display: block;
+        width: 100%;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        height: calc(3rem + 2px) !important;
+        border-radius:0;
+    }
+    .wrn-btn{
+        width: 100%;
+        font-size: 16px;
+        font-weight: 400;
+        text-transform: capitalize;
+        height: calc(3rem + 2px) !important;
+        border-radius:0;
+    }
+</style>
+
+{% endblock content %}

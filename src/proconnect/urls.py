@@ -21,7 +21,11 @@ from  django.conf import settings
 from  django.conf.urls.static import static
 from django.views.static import serve 
 import  debug_toolbar
-from .views import home_view,register_request_user,login_request,logout_view,register_request_company
+from .views import home_view,register_request_user,login_request,logout_view,register_request_company,search_results
+
+# app_name = 'proconnect'
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',login_request,name='login' ),
@@ -31,8 +35,9 @@ urlpatterns = [
     path('register_user/', register_request_user, name="register_user"),
     path('register_company/', register_request_company, name="register_company"),
     path('company_profile/',include('company_profile.urls',namespace='company_profile')),
+    path('searchapp/',include('searchapp.urls',namespace='searchapp')),
      path("login", login_request, name="login"),
-     
+     path('search_results',search_results,name="search_results"),
      path("logout", logout_view, name="logout_view")
     ]
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

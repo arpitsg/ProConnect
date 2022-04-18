@@ -41,13 +41,15 @@
           {% if request.user.is_authenticated %}
          
                <div class="item">
-                <form action="" method="GET">
                   <div class="ui action left icon input">
-                  <input class="prompt" type="text" name='q' placeholder="search">
-                  <i class="search icon"></i>
-                  <button type='submit' class="ui button">Search</button>
+                  
+                      <a href="{% url 'searchapp:search' %}" class="ui item">
+                        <button type='submit' class="ui button">Search</button>
+                      </a>
+                    
+                    
+                  
                   </div>
-              </form>
               </div>
               
 

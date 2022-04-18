@@ -38,6 +38,22 @@ def view_applications(request,id):
                         }
      return render(request,'company_profile/view_applications.html',context)
 
+def other_company(request,id):
+    
+    company=get_object_or_404(Company_profile,id=id)
+    total_jobs = Job.objects.filter(company_userID=company.user).count()
+
+    my_jobs=Job.objects.filter(company_userID=company.user)
+    paginator = Paginator(my_jobs, 1)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context={
+                    'my_jobs':my_jobs,
+                    'page_obj':page_obj,
+                    'company':company,
+                    'total_jobs':total_jobs,}
+    return render(request, 'company_profile/other_company.html',context)
+
 def applied_job_list(request):
     applied_list = Application.objects.filter(seeker=request.user)
     paginator = Paginator(applied_list, 6)
@@ -53,7 +69,6 @@ def applied_job_list(request):
 
 def my_profile_company_view(request):
 
-    
 
     company=get_object_or_404(Company_profile,user=request.user)
     total_jobs = Job.objects.filter(company_userID=request.user).count()

@@ -193,7 +193,10 @@ def other_user(request,id):
     except Experience.DoesNotExist:
         languages=None
 
-    dic={'skills':skills,
+    dic={
+        'user':user,
+        'profile':profile,
+        'skills':skills,
         'educations':educations,
         'awards':awards,
         'experiences':experiences,
