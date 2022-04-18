@@ -1,0 +1,98 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+my profile
+{% endblock title %}
+
+{% block content %}
+
+
+  <div class="container">
+
+    <div class="row">
+      <h2>You have applied {{page_obj|length}} jobs.</h2>
+      {% for app in page_obj %}
+      <div class="col-xxl-6 col-md-12">
+          <div class="card bg-light mb-3">
+            <div class="card-header"> <h5>Application for job <a href= "{% url 'company_profile:single_job_view'   app.job.id  %}" > {{app.job.title }} @ {{app.job.company }}   </a> </h5>
+            
+            </div>
+
+            <h5 class="card-title">Application status is : <span class="badge badge-primary">
+              {{app.status}}
+            </span> </h5>
+            
+            <h5 >Comment recieved: {{app.comment}}</h5 >
+              <p class="card-text"><small class="text-muted">Last updated {{app.timestamp}}</small></p>
+          </div>
+        </div>
+
+
+      {% endfor %}
+    </div>
+{% if page_obj.has_other_pages %}
+<div class="row pagination-wrap">
+  <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+    <span id="page_navigator">Showing {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} Pages</span>
+  </div>
+  <div class="col-md-6 text-center text-md-right">
+    <div class="custom-pagination ml-auto">
+
+      <span id="prev_page">
+      {% if page_obj.has_previous %}
+      <a id="ajax_paginator" href="?page={{ page_obj.previous_page_number }}" class="prev">Prev</a>
+      {% endif %}
+    </span>
+      <span id="page_no">
+        <div class="d-inline-block">
+          {% for i in page_obj.paginator.page_range %}
+          {% if page_obj.number == i %}
+          <a id="ajax_paginator" class="ajax_paginator_{{ i }} active" href="?page={{ i }}">{{ i }}</a>
+
+          {% else %}
+          <a class="ajax_paginator_{{ i }}" id="ajax_paginator" href="?page={{ i }}">{{ i }}</a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </span>
+      {% if page_obj.has_next %}
+      <span id="next_page">
+        <a id="ajax_paginator" class="next" href="?page={{ page_obj.next_page_number }}">Next</a>
+      </span>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endif %}
+
+  </div>
+ 
+
+
+
+<style>
+    main.form-group {
+      /*center form inputs */
+      float: none;
+      margin: 0 auto;
+    }
+
+    main {
+      /* center contents */
+      text-align: center;
+    }
+
+    .card {
+        margin: 10px;
+        padding: 10px;
+      height: 100%;
+    }
+
+    .form-control {
+      align-self: flex-end;
+    }
+</style>
+{% endblock content %}
+

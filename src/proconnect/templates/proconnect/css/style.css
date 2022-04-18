@@ -1,0 +1,283 @@
+/* reset margin and padding */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* impede que um objeto aumente de tamanho ao modificar proriedades como padding */
+  }
+  
+  html,
+  body {
+    height: 100%;
+    /* background-color: red; */ /* for debug */
+    font-family: sans-serif;
+    min-width: 300px; /* facebook logo width*/
+    margin: 0 auto;
+  }
+  
+  /****** SECTION *******/
+  section {
+    width: 100%;
+    height: 720px;
+    background-color: #f0f2f5;
+  }
+  
+  .center {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    
+  }
+  
+  /******** WELCOME *********/
+  .welcome {
+    /* background-color: green; */ /* for debug*/
+    /*display: inline-block;*/
+    width: fit-content;
+    position: absolute;
+    top: 175px;
+    /* left: 155px; */
+    left: 11%;
+  }
+  .welcome img {
+    /* background-color: yellow; */ /* for debug*/
+    width: 300px;
+  }
+  .welcome p {
+    /* background-color: pink; */ /* for debug*/
+    font-size: 28px;
+    width: 450px;
+    margin-left: 30px;
+    margin-top: -15px;
+  }
+  
+  /******** LOGIN FORM *********/
+  .login {
+    /* background-color: teal; */ /* for debug*/
+    /*display: inline-block;*/
+    width: fit-content;
+    position: absolute;
+    top: 140px;
+    /* right: 200px; */
+    right: 12%;
+  }
+  .login form {
+    background-color: white;
+    /* width: fit-content; */
+    width: 396px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  /******** FORM > INPUTS ********/
+  .login input,
+  .login button[type="submit"] {
+    /* width: 330px; */
+    width: 100%;
+    border-radius: 6px;
+    outline: none;
+    margin-bottom: 12px;
+  }
+  .login input {
+    font-size: 17px;
+    padding: 14px 16px;
+    border: 1px solid #dddfe2;
+  }
+  .login button[type="submit"] {
+    border: none;
+    background-color: #1877f2;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    padding: 12px 12px;
+    cursor: pointer;
+  }
+  .login input:focus {
+    border: 1px solid #1877f2;
+  }
+  .login input::-webkit-input-placeholder {
+    color: #9a9ea5;
+  }
+  .login input::-moz-placeholder {
+    color: #9a9ea5;
+  }
+  .login input::-ms-input-placeholder {
+    color: #9a9ea5;
+  }
+  .login input:focus::-webkit-input-placeholder {
+    color: #c2c7cc;
+  }
+  .login input:focus::-moz-placeholder {
+    color: #c2c7cc;
+  }
+  .login input:focus::-ms-input-placeholder {
+    color: #c2c7cc;
+  }
+  .login button[type="submit"]:hover {
+    background-color: #166fe5;
+  }
+  
+  /****** FORM > RECOVER *******/
+  .recover {
+    /*background-color: yellow;*/ /*for debug */
+    width: 100%;
+    text-align: center;
+    margin-top: 2px;
+  }
+  .recover a {
+    color: #3387f4;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .recover a:hover {
+    text-decoration: underline;
+  }
+  
+  /******* FORM > DIV-LINE *******/
+  .div-line {
+    width: 100%;
+    border-top: 1px solid #dadde1;
+    margin: 19px auto;
+  }
+  
+  /***** FORM > NEW ACCOUNT BUTTON ****/
+  .new-account {
+    width: 100%;
+    text-align: center;
+  }
+  .new-account button {
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    padding: 12px 12px;
+    font-size: 17px;
+    outline: none;
+    border: none;
+    background-color: #42b72a;
+    color: white;
+    font-weight: bold;
+  }
+  .new-account button:hover {
+    background-color: #36a420;
+  }
+  
+  /****** .LOGIN > CREATE PAGE TEXT *****/
+  .create-page {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    margin-top: 30px;
+  }
+  .create-page a {
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  .create-page a:hover {
+    text-decoration: underline;
+  }
+  .create-page p {
+    display: inline-block;
+  }
+  
+  /***** FOOTER *****/
+  footer {
+    background-color: white;
+    text-align: center;
+    padding: 25px 190px;
+  }
+  
+  .footer-container {
+    text-align: left;
+  }
+  footer a {
+    color: #8a8d91;
+    text-decoration: none;
+    padding-right: 10px;
+    font-size: 12px;
+  }
+  
+  footer a:hover {
+    text-decoration: underline;
+  }
+  /***** FOOTER > LANGUAGES *****/
+  .languages button {
+    width: 30px;
+    height: 20px;
+    line-height: 10px;
+    vertical-align: middle;
+    font-size: 22px;
+    color: #6a7180;
+    /* font-weight: bold; */
+    border: 1px solid #ccd0d5;
+  }
+  .languages button:hover {
+    background-color: #e5e6e7;
+  }
+  
+  /******* FOOTER > DIV-LINE 2 *******/
+  .div-line2 {
+    width: 100%;
+    border-top: 1px solid #dadde1;
+    margin: 8px auto;
+  }
+  
+  /****** COPY RIGHT ******/
+  .copyright {
+    font-size: 11px;
+    color: #737373;
+    margin-top: 20px;
+  }
+  
+  @media screen and (max-width: 1150px) {
+    .welcome {
+      left: 2%;
+    }
+    .login {
+      right: 2%;
+    }
+  }
+  
+  @media screen and (max-width: 910px) {
+    section {
+      position: static;
+      text-align: center;
+      height: auto;
+    }
+    .welcome {
+      position: static;
+      width: 100%;
+      text-align: center;
+    }
+    .welcome p {
+      width: 100%;
+      margin-left: 0px;
+      padding: 0% 15%;
+    }
+  
+    .login {
+      position: static;
+      width: 100%;
+      text-align: center;
+      /* padding: 20px; */
+      padding: 20px 20%;
+    }
+    .login form {
+      display: inline-block;
+      width: 100%;
+    }
+  
+    footer {
+      padding: 25px 10%;
+    }
+  }
+  
+  @media screen and (max-width: 500px) {
+    .login {
+      padding: 20px;
+    }
+  }
+  

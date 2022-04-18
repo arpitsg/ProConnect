@@ -1,0 +1,115 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+my profile
+{% endblock title %}
+
+{% block content %}
+
+<span style="display:flex; justify-content:flex-end; width:100%; padding:0;">
+<a href="{% url 'company_profile:saved_job_list' %}" >
+  <input type="submit"  name="withdraw" class="btn btn-block btn-primary btn-md" value="Saved Jobs" />
+</a>
+</span>
+
+<section id="ajax_listing_paginattion" class="site-section services-section bg-light block__62849" id="next-section">
+  <div class="container">
+
+    <div class="row">
+
+      {% for job in page_obj %}
+      <div class="col-xxl-6 col-md-12">
+        <div class="card text-center">
+          <h3>{{ job.title }}</h3>
+          <ul class="job-listing-meta list-unstyled pl-3 mb-0">
+            <li class="menu-fix mb-2">
+
+              <span class="badge badge-primary">
+                {{job.job_type}}
+              </span>
+          </li>
+            <li class="badge badge-secondary menu-fix mb-2"> {{ job.location }}</li>
+          </ul>
+          <p>{{ job.description | safe | truncatechars:250}}</p>
+          <a href="{% url 'company_profile:single_job_view' job.id %}" >
+            <input type="submit"  name="withdraw" class="btn btn-block btn-primary btn-md" value="Read More" />
+          </a>
+          
+          </div>
+        </div>
+
+
+          
+
+
+     
+
+      {% endfor %}
+    </div>
+{% if page_obj.has_other_pages %}
+<div class="row pagination-wrap">
+  <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+    <span id="page_navigator">Showing {{ page_obj.number }} of {{ page_obj.paginator.num_pages }} Pages</span>
+  </div>
+  <div class="col-md-6 text-center text-md-right">
+    <div class="custom-pagination ml-auto">
+
+      <span id="prev_page">
+      {% if page_obj.has_previous %}
+      <a id="ajax_paginator" href="?page={{ page_obj.previous_page_number }}" class="prev">Prev</a>
+      {% endif %}
+    </span>
+      <span id="page_no">
+        <div class="d-inline-block">
+          {% for i in page_obj.paginator.page_range %}
+          {% if page_obj.number == i %}
+          <a id="ajax_paginator" class="ajax_paginator_{{ i }} active" href="?page={{ i }}">{{ i }}</a>
+
+          {% else %}
+          <a class="ajax_paginator_{{ i }}" id="ajax_paginator" href="?page={{ i }}">{{ i }}</a>
+          {% endif %}
+          {% endfor %}
+        </div>
+      </span>
+      {% if page_obj.has_next %}
+      <span id="next_page">
+        <a id="ajax_paginator" class="next" href="?page={{ page_obj.next_page_number }}">Next</a>
+      </span>
+      {% endif %}
+
+    </div>
+  </div>
+</div>
+{% endif %}
+
+  </div>
+</section>
+ 
+
+
+
+<style>
+    main.form-group {
+      /*center form inputs */
+      float: none;
+      margin: 0 auto;
+    }
+
+    main {
+      /* center contents */
+      text-align: center;
+    }
+
+    .card {
+        margin: 10px;
+        padding: 10px;
+      height: 100%;
+    }
+
+    .form-control {
+      align-self: flex-end;
+    }
+</style>
+{% endblock content %}
+

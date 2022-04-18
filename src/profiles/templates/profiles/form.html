@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<form action='' method="post">
+
+    {% csrf_token %}
+
+       {{form|crispy}}
+       <button type="submit" class="btn btn-block btn-primary btn-md" id="register_user_submit" name="add_education" data-mdb-ripple-color="dark">Submit</button>
+   </form>
+  
+{% endblock content %}

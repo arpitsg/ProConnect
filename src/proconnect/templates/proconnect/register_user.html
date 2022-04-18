@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+
+{% block title %}
+my profile
+{% endblock title %}
+
+{% block content %}
+<form action='' method="post">
+
+{% csrf_token %}
+
+
+<div class="container py-5 h-100">
+	<div class="row d-flex justify-content-center align-items-center h-100">
+	<div class="col-12">
+		<div class="card card-registration card-registration-2" style="border-radius: 15px;">
+		<div class="card-body p-0">
+			<div class="row g-0">
+			<div class="col-lg-6 col-lg-6  ">
+				<div class="p-5">
+				<h3 class="fw-normal mb-5" style="color: #000000;">Register</h3>
+
+				
+
+				<div class="row">
+					<div class="col-md-6 mb-4 pb-2">
+
+					<div class="form-outline">
+						<label class="form-label" for="form3Examplev2">First name</label>
+
+						<input type="text" name="first_name" required  id="form3Examplev2" class="form-control form-control-lg" />
+					</div>
+
+					</div>
+					<div class="col-md-6 mb-4 pb-2">
+
+					<div class="form-outline">
+						<label class="form-label" for="form3Examplev3">Last name</label>
+
+						<input type="text" name="last_name" required id="form3Examplev3" class="form-control form-control-lg" />
+					</div>
+
+					</div>
+				</div>
+
+				<div class="mb-4 pb-2">
+					<label class="form-label">Gender: </label>
+
+					<select class="select" name="gender" required>
+					<option value='M'>Male</option>
+					<option value='F'>Female</option>
+					<option value='O'>Other</option>
+					<option value="S">Prefer not to say</option>
+					</select>
+				</div>
+
+				<div class="mb-4 pb-2">
+					<div class="form-outline">
+					<label class="form-label" for="form3Examplev4">Date Of Birth</label>
+					<input type="date" name="dob" id="form3Examplev4" class="form-control form-control-lg" />
+					
+					</div>
+				</div>
+				<div class="mb-4 pb-2">
+					<div class="form-outline form-white">
+					<label class="form-label" for="form3Examplea2">Email Id </label>
+					<input type="email" name="email"  required id="form3Examplea2" class="form-control form-control-lg" />
+					</div>
+				</div>
+
+
+				</div>
+			</div>
+			<div class="col-lg-6 bg-indigo text-white">
+				<div class="p-5">
+
+				
+
+				<div class="mb-4 pb-2">
+					<div class="form-outline form-white">
+						<label class="form-label" for="form3Examplea3">Username</label>
+
+					<input type="text" name="userid" required id="form3Examplea3" class="form-control form-control-lg" />
+					</div>
+				</div>
+
+			
+
+				<div class="mb-4 pb-2">
+					<div class="form-outline form-white">
+					<label class="form-label" for="form3Examplea6">Password</label>
+
+					<input type="password" onkeypress="checkPass();" required name="password1" id="password1" class="form-control form-control-lg" />
+					</div>
+				</div>
+
+				<div class="mb-4 pb-2">
+					<div class="form-outline form-white">
+					<label class="form-label"  for="form3Examplea6">Repeat Password</label>
+
+					<input type="password" onkeypress="checkPass();" required name="password2" id="password2" class="form-control form-control-lg" />
+					</div>
+				</div>
+
+				
+
+				<button type="submit" class="btn btn-light btn-lg" id="register_user_submit" name="register_user_submit" data-mdb-ripple-color="dark">Register</button>
+
+				</div>
+			</div>
+			</div>
+		</div>
+		</div>
+	</div>
+	</div>
+</div>
+</form>
+<script>
+			var password = document.getElementById("password1")
+			, confirm_password = document.getElementById("password2");
+
+			function validatePassword(){
+			if(password.value != confirm_password.value) {
+				confirm_password.setCustomValidity("Passwords Don't Match");
+			} else {
+				confirm_password.setCustomValidity('');
+			}
+			}
+
+			password.onchange = validatePassword;
+			confirm_password.onkeyup = validatePassword;
+
+
+</script>
+<style>
+	@media (min-width: 1025px) {
+		.h-custom {
+				height: 100vh !important;
+		}
+	}
+	.card-registration .select-input.form-control[readonly]:not([disabled]) {
+		font-size: 1rem;
+		line-height: 2.15;
+		padding-left: .75em;
+		padding-right: .75em;
+	}
+	.card-registration .select-arrow {
+		top: 13px;
+	}
+
+
+	.bg-indigo {
+		background-color: #1d117e;
+	}
+
+	.bg-blue {
+		background-color: #ffffff;
+	}
+	@media (min-width: 992px) {
+		.card-registration-2 .bg-indigo {
+				border-top-right-radius: 15px;
+				border-bottom-right-radius: 15px;
+		}
+	}
+	@media (max-width: 991px) {
+		.card-registration-2 .bg-indigo {
+				border-bottom-left-radius: 15px;
+				border-bottom-right-radius: 15px;
+		}
+	}
+</style>
+{% endblock %}

@@ -1,0 +1,94 @@
+{% url 'home-view' as path_to_home %}
+{% url 'posts:main-post-view' as path_to_posts %}
+{% url 'profiles:my-profile-view' as path_to_my_profile %}
+{% url 'profiles:my-invites-view' as path_to_my_invites %}
+{% url 'profiles:friends_list_view' as path_to_invites %}
+{% url 'profiles:all-profiles-view' as path_to_all_profiles %}
+
+<div class="ui inverted menu nav mb-7">
+    <div class="ui container">
+      <a href="/" class="item">
+          <h3>proConnect</h3>
+      </a>
+     {% if request.user.is_authenticated %}
+     {% if request.user.profile %}
+
+       <a href="/profiles/myprofile" class="item">
+           My Profile
+       </a>
+       {% endif %}
+       {% endif %}
+
+       {% if request.user.is_authenticated %}
+       {% if request.user.company_profile %}
+
+         <a href="/company_profile/myprofile" class="item">
+             My Profile
+         </a>
+         {% endif %}
+         {% endif %}
+  
+      {% if request.user.is_authenticated %}
+      {% if request.user.profile %}
+        <a href="/posts" class = "item">Posts</a>
+      {% endif %}
+      {% endif %}
+      
+      {% if request.user.is_authenticated %}
+      {% if request.user.profile %}
+      <div class="dropdown">
+        <button onclick="myFunction1()" class="dropbtn">Jobs</button>
+        <div id="myDropdown1" class="dropdown-content">
+        <a href="/company_profile/job_list">All Jobs</a>
+          <a href="/company_profile/saved_job_list">Saved Jobs</a>
+          <a href="/company_profile/applied_job_list">Applied Jobs</a>
+        </div>
+      </div> 
+      {% endif %}
+      {% endif %}
+      <div class="right menu">
+      {% if request.user.is_authenticated %}
+      {% if request.user.profile %}
+      <div class="dropdown">
+          <button onclick="myFunction2()" class="dropbtn">Friends</button>
+
+            <div id = "myDropdown2" class="dropdown-content">
+                    <a href="/profiles">All Profiles</a>
+                  <a href="{{path_to_invites}}">
+                      My Friends
+                  </a>
+                  <a href="{{path_to_my_invites}}">
+                      Received Invites &nbsp; <div class="ui purple horizontal label">{{invites_num}}</div>
+                  </a>
+              </div>
+           </div>
+      </div>
+      {% endif %}
+      {% endif %}
+      {% if request.user.is_authenticated %}
+      {% if request.user.profile %}
+               <div class="item">
+                <form action="" method="GET">
+                  <div class="ui action left icon input">
+                  <input class="prompt" type="text" name='q' placeholder="search">
+                  <i class="search icon"></i>
+                  <button type='submit' class="ui button">Search</button>
+                  </div>
+              </form>
+              </div>
+              <a href="" class="item">
+                   {{ request.user }}
+              </a>
+  
+              <a href="{% url 'logout_view' %}" class="ui item">
+                  Logout
+              </a>
+          {% else %}
+          <a href="" class="ui item">
+                  Login
+              </a>
+          {% endif %}
+          {% endif %}
+      </div>
+    </div>
+  </div>

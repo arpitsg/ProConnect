@@ -1,0 +1,23 @@
+
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<form action='' method="post">
+
+    {% csrf_token %}
+
+       {{job_form|crispy}}
+       <button type="submit" class="btn btn-block btn-primary btn-md" id="register_user_submit" name="add_job" data-mdb-ripple-color="dark">Submit</button>
+   </form>
+   <form action='' method="post">
+
+    {% csrf_token %}
+    <button type="submit" class="btn btn-block btn-primary btn-md" id="register_user_submit" name="delete_job" data-mdb-ripple-color="dark">Delete</button>
+
+   </form>
+
+</div>
+{% endblock content %}
