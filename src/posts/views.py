@@ -1,142 +1,108 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
-from django.contrib import messages
-
-from .models import Post
+from django.urls import reverse_lazy
+from .models import Post, Comment, Like
+from profiles.models import Profile
 from .forms import PostForm, CommentForm
-
-
-@login_required
-def add_post_view(request):
-    if request.method == "POST":
-        form = PostForm(request.POST, request.FILES)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.user = request.user
-            obj.save()
-            messages.success(request, "Post has been created.")
-            return redirect("/posts")
-    form = PostForm()
-    template_name = "posts/add_post.html"
-    context = {"form": form}
-    return render(request, template_name, context)
-
+from django.views.generic import UpdateView, DeleteView
+from django.contrib import messages
+from django.http import JsonResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+# Create your views here.
 
 @login_required
-def display_posts_view(request):
-    posts = Post.objects.get_posts(False)
-    liked = []
-    like_no = []
+def create_posts_and_comments(request):
+    qs = Post.objects.all()
+    profile = Profile.objects.get(user=request.user)
 
-    for post in posts:
-        liked.append(check_like(request.user, post)[0])
-        like_no.append(check_like(request.user, post)[1])
+    # initials
+    post_form = PostForm()
+    comment_form = CommentForm()
+    post_created = False
 
-    master_list = zip(posts, liked, like_no)
-    context = {"master": master_list}
+    profile = Profile.objects.get(user=request.user)
 
-    template_name = "posts/display_posts.html"
-    return render(request, template_name, context)
+    if 'submit_post_form' in request.POST:
+        print(request.POST)
+        post_form = PostForm(request.POST, request.FILES)
+        if post_form.is_valid():
+            instance = post_form.save(commit=False)
+            instance.author = profile
+            instance.save()
+            post_form = PostForm()
+            post_created = True
 
+    if 'submit_comment_form' in request.POST:
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            instance = comment_form.save(commit=False)
+            instance.user = profile
+            instance.post = Post.objects.get(id=request.POST.get('post_id'))
+            instance.save()
+            comment_form = CommentForm()
 
-@login_required
-def detail_post_view(request, pk):
-    post = Post.objects.get(pk=pk)
-    comments = post.comment_set.all()
-    num_comments = len(comments)
-    template_name = "posts/detail_post.html"
-    liked, like_no = check_like(request.user, post)
 
     context = {
-        "post": post,
-        "comments": comments,
-        "liked": liked,
-        "like_no": like_no,
-        "num_comments": num_comments
+        'qs': qs,
+        'profile': profile,
+        'post_form': post_form,
+        'comment_form': comment_form,
+        'post_created': post_created,
     }
 
-    return render(request, template_name, context)
-
-
-@login_required
-def comments_view(request, pk):
-    if request.method == "POST":
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            post = Post.objects.get(pk=pk)
-            obj.post = post
-            obj.user = request.user
-            obj.save()
-            return redirect(f"/posts/{pk}")
-
-    form = CommentForm()
-    template_name = "posts/add_comment.html"
-    context = {"form": form}
-    return render(request, template_name, context)
-
-
-def check_like(user, post):
-    likes = post.likes
-    if user in likes.all():
-        return True, len(likes.all())
-    return False, len(likes.all())
-
-
-def like_view(request, pk, destination):
-    post = Post.objects.get(pk=pk)
-    liked, like_no = check_like(request.user, post)
-    if liked:
-        post.likes.remove(request.user)
-    else:
-        post.likes.add(request.user)
-    print(post.likes.all())
-    post.save()
-    print(request.POST)
-    next_url = request.POST.get("next")
-    return redirect(next_url)
-
+    return render(request, 'posts/main.html', context)
 
 @login_required
-def delete_post_view(request, pk):
-    obj = Post.objects.get(pk=pk)
-    if request.method == "POST":
-        obj.delete()
-        messages.error(request, "Post has been deleted.")
-        return redirect("profile")
-    template_name = "posts/delete_post.html"
-    context = {"post": obj}
-    return render(request, template_name, context)
+def like_unlike_post(request):
+    user = request.user
+    if request.method == 'POST':
+        post_id = request.POST.get('post_id')
+        post_obj = Post.objects.get(id=post_id)
+        profile = Profile.objects.get(user=user)
 
+        if profile in post_obj.liked.all():
+            post_obj.liked.remove(profile)
+        else:
+            post_obj.liked.add(profile)
 
-@login_required
-def update_post_view(request, pk):
-    obj = Post.objects.get(pk=pk)
-    if request.method == "POST":
-        post = PostForm(request.POST, request.FILES, instance=obj)
-        if post.is_valid():
-            post.save()
-            messages.success(request, "Post has been updated.")
-            return redirect("profile")
+        like, created = Like.objects.get_or_create(user=profile, post_id=post_id)
 
-    form = PostForm(instance=obj)
-    template_name = "posts/update-post.html"
-    context = {"form": form}
-    return render(request, template_name, context)
+        if not created:
+            if like.value=='Like':
+                like.value='Unlike'
+            else:
+                like.value='Like'
+        else:
+            like.value='Like'
 
+            post_obj.save()
+            like.save()
+    return redirect('posts:main-post-view')
 
-@login_required
-def archive_post_view(request, pk):
-    obj = Post.objects.get(pk=pk)
-    obj.archived = True
-    obj.save()
-    return redirect("profile")
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    model = Post
+    template_name = 'posts/confirm_del.html'
+    success_url = reverse_lazy('posts:main-post-view')
+    # success_url = '/posts/'
 
+    def get_object(self, *args, **kwargs):
+        pk = self.kwargs.get('pk')
+        obj = Post.objects.get(pk=pk)
+        if not obj.author.user == self.request.user:
+            messages.warning(self.request, 'You need to be the author of the post in order to delete it')
+        return obj
 
-@login_required
-def unarchive_post_view(request, pk):
-    obj = Post.objects.get(pk=pk)
-    obj.archived = False
-    obj.save()
-    return redirect("profile")
+class PostUpdateView(LoginRequiredMixin, UpdateView):
+    form_class = PostForm
+    model = Post
+    template_name = 'posts/update.html'
+    success_url = reverse_lazy('posts:main-post-view')
+
+    def form_valid(self, form):
+        profile = Profile.objects.get(user=self.request.user)
+        if form.instance.author == profile:
+            return super().form_valid(form)
+        else:
+            form.add_error(None, "You need to be the author of the post in order to update it")
+            return super().form_invalid(form)
+    

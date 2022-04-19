@@ -28,7 +28,7 @@ from .views import home_view,register_request_user,login_request,logout_view,reg
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',login_request,name='login' ),
+    path('',home_view,name='home_view' ),
     path('__debug__/', include('debug_toolbar.urls')),
     path('profiles/',include('profiles.urls',namespace='profiles')),
     path('posts/',include('posts.urls',namespace='posts')),

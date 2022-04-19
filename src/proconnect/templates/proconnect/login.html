@@ -5,11 +5,7 @@ my profile
 {% endblock title %}
 
 {% block content %}
-{% if messages %}
-  {% for message in messages %}
-    <div class="alert" >{{ message|safe }}</div>
-  {% endfor %}
-{% endif %}
+
 <h1  text-align: center;>Welcome to ProConnect</h1>
 <form action='' method="post">
 
@@ -26,7 +22,7 @@ my profile
 				<div class="p-5">
         
               
-                  <h1 class="w-100">Din't Have an Account </h1>
+                  <h1 class="w-100">Don't Have an Account </h1>
                   <h4>Simply Create your account by clicking the Signup Button</h4>
                   <br><br>
                   <button type="button"  class="btn btn-outline-primary btn-lg">

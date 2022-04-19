@@ -24,8 +24,12 @@ def search_results(request):
     
 
 def home_view(request):
+    if request.user.is_authenticated:
+        return redirect("/profiles/myprofile")
+    else:
+        return login_request(request)
+
     
-    return render(request,'main/home.html',{})
 
     
 def logout_view(request):
@@ -59,7 +63,7 @@ def register_request_company(request):
             company.save()
             user.password=(make_password(value['password1']))
             user.save()
-            redirect('../login')
+            return redirect('../login')
          return render (request, 'proconnect/register_company.html')
 
 def register_request_user(request):

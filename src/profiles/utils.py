@@ -3,7 +3,7 @@ import socket
 import uuid
 from django.contrib.gis.geoip2 import GeoIP2
 import requests
-
+import profiles.models 
 def get_random_postfix():
    return str(uuid.uuid4())[:10].replace('-','').lower()
 
@@ -56,3 +56,10 @@ def get_zoom(distance):
         return 4
     else:
         return 2
+
+def invitations_received_no(request):
+    if request.user.is_authenticated:
+        profile_obj = profiles.Profile.objects.get(user=request.user)
+        qs_count = profiles.Relationship.objects.invitations_received(profile_obj).count()
+        return {'':qs_count}
+    return {}

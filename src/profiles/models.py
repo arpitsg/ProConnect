@@ -12,8 +12,8 @@ from matplotlib.pyplot import title
 from django.core.validators import MinValueValidator, MaxValueValidator
 from sqlalchemy import null
 from .utils import get_random_postfix
+from django.db.models import Q
 # Create your models here.
-
 
 GENDER=[
     ('M', 'Male'),
@@ -25,7 +25,37 @@ PROFILE_CHOICE=[
     ('U', 'User'),
     ('C', 'Company')
 ] 
+STATUS_CHOICES = (
+    ('send', 'send'),
+    ('accepted', 'accepted')
+)
 
+class ProfileManager(models.Manager):
+
+    def get_all_profiles_to_invite(self, sender):
+        profiles = Profile.objects.all().exclude(user=sender)
+        profile = Profile.objects.get(user=sender)
+        qs = Relationship.objects.filter(Q(sender=profile) | Q(receiver=profile))
+        print(qs)
+        print("#########")
+
+        accepted = set([])
+        for rel in qs:
+            if rel.status == 'accepted':
+                accepted.add(rel.receiver)
+                accepted.add(rel.sender)
+        print(accepted)
+        print("#########")
+
+        available = [profile for profile in profiles if profile not in accepted]
+        print(available)
+        print("#########")
+        return available
+
+
+    def get_all_profiles(self, me):
+        profiles = Profile.objects.all().exclude(user=me)
+        return profiles
 class Profile(models.Model):
     
     
@@ -39,16 +69,16 @@ class Profile(models.Model):
     account_type = models.CharField(max_length=1,choices=PROFILE_CHOICE,default='U')
     about_us=models.CharField(default='No bio....',max_length=1000)
     picture = models.ImageField(default='avatar.png',upload_to='avatars/')
-    connections=models.ManyToManyField(User,related_name='connections',blank=True)
-
+    friends = models.ManyToManyField(User, blank=True, related_name='friends')
     last_updated_time=models.DateTimeField(auto_now=True)
     created_time=models.DateTimeField(auto_now_add=True)
     slug=models.SlugField(unique=True, blank=True,max_length=1000)
+    objects = ProfileManager()
+    def get_friends(self):
+        return self.friends.all()
 
-    def get_connections(self):
-        return self.connections.all()
-    def get_connections_count(self):
-        return self.connections.all().count()
+    def get_friends_no(self):
+        return self.friends.all().count()
     
 
 
@@ -172,3 +202,17 @@ class Address(models.Model):
         longitude=models.DecimalField(max_digits=22, decimal_places=16, blank=True, null=True)
 
 
+class RelationshipManager(models.Manager):
+    def invitations_received(self, receiver):
+        qs = Relationship.objects.filter(receiver=receiver, status='send')
+        return qs
+
+class Relationship(models.Model):
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sender')
+    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='receiver')
+    status = models.CharField(max_length=8, choices=STATUS_CHOICES)
+    updated = models.DateTimeField(auto_now=True)
+    created = models.DateTimeField(auto_now_add=True)
+    objects = RelationshipManager()
+    def __str__(self):
+        return f"{self.sender}-{self.receiver}-{self.status}"
