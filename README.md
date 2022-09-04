@@ -1,5 +1,5 @@
-# Pro-Connect
-This is Course project for DBMS at IITK.
+# Pro-Connect 
+## This is Course project for DBMS at IITK.
 Our app, ProConnect, is a professional networking web application. It offers services to two kinds of users which include the regular users and the companies. The companies can post job openings on the website whereas the users can apply for open job positions. All users can also post content on the website which will be visible to their connections. All users have a profile page which shows information about their education, projects, skills, experience among other details.
 # Purpose:
 One of the primary purposes of our app is to ease out the process for applying for and viewing job positions for users. It also eases out the process of filtering candidates for prospective jobs and also spreading news of job openings for the companies. Another of the important uses of the application is to make professional connections with other users.
