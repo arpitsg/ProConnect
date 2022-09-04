@@ -1,4 +1,6 @@
-# Pro-Connect <style> CS253 Course project Redirect Link {text-align: right}</style>
+
+### If you wated to check: [CS253 Software Development course redirect:]([https://link-url-here.org](https://github.com/arpitsg/CS253-Course-Project))
+# Pro-Connect 
 ## This is Course project for DBMS at IITK.
 Our app, ProConnect, is a professional networking web application. It offers services to two kinds of users which include the regular users and the companies. The companies can post job openings on the website whereas the users can apply for open job positions. All users can also post content on the website which will be visible to their connections. All users have a profile page which shows information about their education, projects, skills, experience among other details.
 # Purpose:
